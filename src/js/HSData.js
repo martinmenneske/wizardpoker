@@ -93,18 +93,14 @@ export default class HSData {
             console.log('step function needs a card object as first param');
             return;
         } else {
-            let currentIndex = goodData.findIndex(compareID);
-                console.log('Current Index: ' + currentIndex);
-                
+            let currentIndex = goodData.findIndex(compareID);                
             switch (direction) {
                 case 'next':
                     if( currentIndex >= (goodData.length - 1)) currentIndex = -1;
-                        console.log('Upcoming index: ' + (currentIndex + 1));
                     return goodData[currentIndex + 1];
                     break;
                 case 'prev':
                     if( currentIndex == 0) currentIndex = goodData.length;
-                    console.log('Upcoming index: ' + (currentIndex - 1));
                     return goodData[currentIndex - 1];
                 case 'first':
                     return goodData[0];    

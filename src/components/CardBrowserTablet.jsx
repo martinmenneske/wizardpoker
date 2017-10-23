@@ -19,10 +19,11 @@ export default class CardBrowserTablet extends React.Component {
             cardHistory : this.props.cardHistory,
             showSettings : false,
             showAbout: false,
-            storeState: false,
-            loadGolden: false,
-            storeJson: false
+            saveStateLocal: this.props.saveStateLocal,
+            preferGolden: this.props.preferGolden
         }
+        console.log('Constructor in CB says: ' + this.state.cardHistory[0]);
+        
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
@@ -44,18 +45,13 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    saveSettings( browse, bling, store ) {
+    saveSettings( saveStateLocal, preferGolden, store ) {
+        this.props.saveStateHandler( saveStateLocal, preferGolden, store)
         this.setState({
-            showSettings: !this.state.showSettings,
-            storeState: browse,
-            loadGolden: bling,
-            storeJson: store
-        })
-        
-    }
-
-    createToolTip ( item ){
-        return <Tooltip bsSize="large" id="tooltip">{ item.name }</Tooltip>;
+            saveStateLocal: saveStateLocal,
+            preferGolden: preferGolden,
+            showSettings: !this.state.showSettings
+        });
     }
 
     createPopOver ( item, i ){
@@ -90,9 +86,16 @@ export default class CardBrowserTablet extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {        
-        this.setState({
-            cardHistory : nextProps.cardHistory
-        })
+         if(nextProps.cardHistory) { 
+            this.setState({ 
+                cardHistory: nextProps.cardHistory
+            });
+        }
+    }
+
+    doSomething( item ) {
+        // console.log(item);
+        
     }
 
     render () {
@@ -103,7 +106,10 @@ export default class CardBrowserTablet extends React.Component {
                     dismissHandler={this.showHideSettings} 
                     saveHandler={this.saveSettings} 
                     goToFirst={this.props.clickHandler} 
-                    currentSettings={{browse: this.state.storeState, bling: this.state.loadGolden, store: this.state.storeJson}}/>
+                    saveStateLocal={this.state.saveStateLocal}
+                    preferGolden={this.state.preferGolden} 
+                    store={this.state.storeJson}
+                    />
             </Modal>
             <Modal show={this.state.showAbout} onHide={this.showHideAbout}>
                 <ModalAbout dismissHandler={this.showHideAbout} />
@@ -117,7 +123,7 @@ export default class CardBrowserTablet extends React.Component {
                         <Nav>
                             <NavDropdown eventKey={4} title="Meta" id="basic-nav-dropdown">
                                 <MenuItem name="settingsNav" eventKey={4.1} href="#" onClick={this.showHideSettings}>Settings</MenuItem>
-                                <MenuItem name="abouNav" eventKey={4.2} href="#" onClick={this.showHideAbout}>About</MenuItem>
+                                <MenuItem name="aboutNav" eventKey={4.2} href="#" onClick={this.showHideAbout}>About</MenuItem>
                             </NavDropdown>
                         </Nav>
                         <Nav>
@@ -133,27 +139,28 @@ export default class CardBrowserTablet extends React.Component {
                         </Nav>
                 </Navbar>
                 <div className="hscard-container">
-                    <CardImage cardData={ this.props.cardData } golden={ false } />
+                    <CardImage cardData={ this.props.cardData } golden={ this.state.preferGolden } />
                     <CardMeta cardData={ this.props.cardData } />
                 </div>
                 <div id="under-body" className="history-container">
                     <div className="scroll-box">
                         <ul>
-                            {(this.state.cardHistory)
-                                ? this.state.cardHistory.map((item,i) => <li className="thumb-list-item" key={i}>
-                                <OverlayTrigger ref={item.name + i} trigger="click" placement="top" rootClose overlay={this.createPopOver(item, i)}>
-                                    <div className="thumbnail-wrap">
-                                        <div className="thumbnail">
-                                            
-                                            {/* <a href="#" key={i} onClick={() => this.props.historyChangeHandler( i ) }>   */}
-                                                <CardThumb cardData={item} />
-                                            {/* </a> */}
-                                            
-                                        </div>
+                            {
+                            (this.state.cardHistory)
+                            ? this.state.cardHistory.map((item,i) => <li className="thumb-list-item" key={i}>
+                            <OverlayTrigger ref={item.name + i} trigger="click" placement="top" rootClose overlay={this.createPopOver(item, i)}>
+                                <div className="thumbnail-wrap">
+                                    <div className="thumbnail">
+                                        
+                                        {/* <a href="#" key={i} onClick={() => this.props.historyChangeHandler( i ) }>   */}
+                                            <CardThumb cardData={item} />
+                                        {/* </a> */}
+                                        
                                     </div>
-                                    </OverlayTrigger>
-                                </li>)
-                                : null
+                                </div>
+                                </OverlayTrigger>
+                            </li>)
+                            : ''
                             }
                         </ul>
                     </div>
