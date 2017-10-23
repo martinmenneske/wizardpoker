@@ -1,0 +1,141 @@
+@import 'mixins.scss';
+@import 'variables.scss';
+@import 'puller.scss';
+
+
+.smallscreen {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    // position: relative;
+    // background: #ff0;
+    .hscard-container {
+        height: 100%;
+        width: 300px;
+        position: relative;
+        bottom: 59px;
+        margin: 0 auto;
+        // padding-top:30px;
+        
+        .pull-refresher {
+            @include centerer();
+            height:400px;
+            width: 300px;
+            margin: 0 auto;
+           
+            #content {
+                margin-top:30px;
+                height: 100%;
+                width: 100%; 
+
+                .hscard-image-box {
+                        width: 286px;
+                        height: 395px;
+                }
+            .hscard-meta-box {
+                @include centerer();
+                width:100%;
+                .hscard-meta-container {
+                    min-height: 300px;
+                    padding: 15px 0 0 0;
+                    margin: 0;
+                    #hscard-meta-tab-nav {
+                        .card-block {
+                            padding: 5px 10px;
+                        }
+                    }
+
+                    .card-block {
+                        margin: 0;
+                        padding:10px 5px 5px 5px;
+                    }
+                }
+            }
+            .hscard-image-placeholder {
+                margin-top: 44px;
+                    img {
+                    // opacity: .7; 
+                    }
+                }
+            }
+        }
+    }
+    .under {
+        flex: 1;
+        background-color: rgba(0, 0, 0, .5);
+        border-top: 1px solid #fff;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 2em;
+        padding: .3em;
+        display: flex;
+        justify-content: space-around;
+        color: #fff;
+        a {
+            color:#fff;
+            :active {
+                color: #999;
+            }
+        }
+    }
+}
+
+/* Flippant Styles */
+.smallscreen {
+    .hscard-container { 
+        width: 306px;
+        // height: 415px;
+        // position: relative;
+        perspective: 800px;
+    }
+
+    #hscard {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        transition: transform .5s;
+    }
+
+    #hscard .hscard-front, #hscard .hscard-back {
+        margin: 0;
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+    }
+
+    .hscard-image-box {
+        @include centerer();
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+    }
+
+
+    #hscard .hscard-front {
+
+    }
+    #hscard .hscard-back {
+        -webkit-transform: rotateY( 180deg );
+        transform: rotateY( 180deg );
+    }
+
+    #hscard.flipped {
+        -webkit-transform: rotateY( 180deg );
+        transform: rotateY( 180deg );
+    }
+
+    #hscard.flipped {
+        -webkit-transform: rotateY( 180deg );
+        transform: rotateY( 180deg );
+    }
+} // .smallscreen

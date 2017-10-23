@@ -1,0 +1,116 @@
+/* Heady Stuff */ 
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,600');
+@import 'mixins.scss';
+@import 'variables.scss';
+
+
+/* General Styles */ 
+html, body {
+    font-family: 'Raleway', sans-serif;
+    font-size: $textsize;
+    background: url('../assets/texturedbg.png');
+}
+
+
+    .bg-dark {
+        background: #222;
+    }
+    .text-white {
+        color: #fff;
+    }
+
+
+
+.hscard-meta-box {
+    .hscard-meta-container {                
+        padding: 15px;
+        margin: 0 15px 15px 15px;
+        border: 1px solid #fff;
+
+        #hscard-meta-tab-nav {  
+            .card-block {
+                margin: 0 20px;
+            }
+            .nav-tabs {
+                margin: 0 20px 20px 20px ;
+                display: flex;
+                li {
+                    flex-grow: 1;
+                    text-align: center;
+
+                }
+                li a {
+                    color: #fff;
+
+                }
+                .active a {
+
+                    color: #222;
+                }
+            }
+        }
+
+        hr {
+            margin: 15px 0;
+            border-color: #ddd;
+        }
+        .meta-flavor, .hscard-text {
+            font-size: 1.1em;
+            font-style: italic;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .meta-key {
+            font-weight: bold;
+        
+        }
+    }
+}
+
+
+.app-outer-wrapper {
+    // position: relative;
+}
+
+.hscard-meta-box {
+    @include dropshadow();
+}
+
+.hscard-image-box {
+    @include dropshadow();
+}
+
+.golden {
+    margin-top: -40px;
+    margin-left: -10px;
+}
+
+/* App Loader Styles */ 
+
+@keyframes flip {
+	50% {
+	  transform: rotate3d(0, 1, 0, 180deg);
+	}
+  }
+
+
+.loading-indicator {
+    @include centerer();
+    width: calc(100% - 20px);
+    text-align:	center;    
+	// margin: 100px auto;
+	.loading-text {
+		color: #fff;
+    }
+    svg {
+        animation: flip 1.6s linear infinite;
+      }
+}
+
+/* ImageLoader Preloader */ 
+.image-load-svg {
+    // margin:-105px auto 0 auto;
+    position: relative;
+    top: -100px;
+    left: 125px;
+}

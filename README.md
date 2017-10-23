@@ -1,2 +1,3 @@
 # wizardpoker
-A Hearthstone card browser
+A responsive card browser for Hearthstone.
+

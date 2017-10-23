@@ -1,0 +1,20 @@
+@mixin vertical-align () {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+@mixin centerer () {
+// .parent { position:relative; }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin dropshadow () {
+    -webkit-filter: drop-shadow(0px 0px 5px #222);
+    filter: drop-shadow(0px 0px 5px #222);
+}
