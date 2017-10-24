@@ -39,7 +39,7 @@ export default class App extends React.Component {
             currentCard: null,
             cardHistory: [],
             saveStateLocal: yesno,
-            debugging: true
+            debugging: false
         }
 
         this.handleClick = this.handleClick.bind(this);

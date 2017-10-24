@@ -66,18 +66,16 @@ html, body {
         }
     }
 }
-
+.hscard-container {
+    .pull-refresher {
+        #content {
+            @include dropshadow();
+        }
+    }
+}
 
 .app-outer-wrapper {
     // position: relative;
-}
-
-.hscard-meta-box {
-    @include dropshadow();
-}
-
-.hscard-image-box {
-    @include dropshadow();
 }
 
 .golden {
