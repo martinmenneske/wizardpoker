@@ -9,21 +9,11 @@ export default class ModalSettings extends React.Component {
         super( props );
         this.state = { 
                 saveStateLocal: this.props.saveStateLocal,
-<<<<<<< HEAD
                 preferGolden: this.props.preferGolden
             }
         this.setBrowseMode = this.setBrowseMode.bind(this);
         this.setBlingMode = this.setBlingMode.bind(this);
 
-=======
-                preferGolden: this.props.preferGolden,
-                storeMode: this.props.store
-            }
-
-        this.setSaveStateLocal = this.setSaveStateLocal.bind(this);
-        this.setPreferGolden = this.setPreferGolden.bind(this);
-        this.setStoreMode = this.setStoreMode.bind(this);
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
         this.saveAndClose = this.saveAndClose.bind(this);
         this.loadFirst = this.loadFirst.bind(this);
     }
@@ -36,15 +26,6 @@ export default class ModalSettings extends React.Component {
     setPreferGolden ( value ) {        
         this.setState({
             preferGolden: value
-<<<<<<< HEAD
-=======
-        })
-    }
-
-    setStoreMode ( value ) {        
-        this.setState({
-            storeMode: value
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
         })
     }
     loadFirst() {
@@ -53,21 +34,10 @@ export default class ModalSettings extends React.Component {
         }});
     }
 
-<<<<<<< HEAD
     saveAndClose() {
         console.log('from Modal: saveStateLocal is ' + this.state.saveStateLocal);
         
         this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden);
-=======
-    saveAndClose() { 
-        this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden, this.state.storeMode);
-        // This'll do for now.
-        let cardType = this.state.preferGolden ? 'golden' : 'better';
-        let saveState = this.state.saveStateLocal ? 'remember' : 'forget';
-            localStorage.setItem('saveState', saveState);
-            localStorage.setItem('preferGolden', cardType);
-        
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
     
     componentWillReceiveProps (nextProps) {
@@ -94,11 +64,7 @@ export default class ModalSettings extends React.Component {
                                         type="radio"
                                         name="save-state-mode"
                                         value={this.state.saveStateLocal}
-<<<<<<< HEAD
                                         onChange={this.setBrowseMode}>
-=======
-                                        onChange={this.setSaveStateLocal}>
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                                             <ToggleButton value={true}>Sure!</ToggleButton>
                                             <ToggleButton value={false}>No, thanks</ToggleButton>
                                     </ToggleButtonGroup>
@@ -106,25 +72,15 @@ export default class ModalSettings extends React.Component {
                                 </tr>
                                 <tr> 
                                     <td className="settings-text">
-<<<<<<< HEAD
                                         <strong>How about a cake?</strong> <strong><em style={{color: 'grey'}}>Currently not available.</em></strong><br />
-=======
-                                        <strong>How about a cake?</strong> <strong style={{color: 'grey'}}><em>Not available yet!</em></strong> <br />
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                                         Would you like to store a copy of the card-data to speed up loading this page? Only text data will be stored.
                                         
                                     </td>
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                         type="radio"
-<<<<<<< HEAD
                                         name="store-mode"
                                         >
-=======
-                                        name="store-data-mode"
-                                        value={this.state.storeMode}
-                                        onChange={this.setStoreMode}>
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                                             <ToggleButton disabled value={true}>Alrighty</ToggleButton>
                                             <ToggleButton disabled value={false}>No wai!</ToggleButton>
                                     </ToggleButtonGroup>
@@ -138,15 +94,9 @@ export default class ModalSettings extends React.Component {
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                     type="radio"
-<<<<<<< HEAD
                                     name="prefer-golden-mode"
                                     value={this.state.preferGolden}
                                     onChange={this.setBlingMode}>
-=======
-                                    name="golden-mode"
-                                    value={this.state.preferGolden}
-                                    onChange={this.setPreferGolden}>
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                                         <ToggleButton value={true}>Yep</ToggleButton>
                                         <ToggleButton value={false}>Nope</ToggleButton>
                                 </ToggleButtonGroup>

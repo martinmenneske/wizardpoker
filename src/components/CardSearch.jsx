@@ -15,8 +15,10 @@ export default class CardSearch extends React.Component {
         
         options = this.props.allCards;
         currentCard = this.props.currentCard;
+
         filterOptions = createFilterOptions({ options })
         
+
 
     }
 
@@ -34,6 +36,7 @@ export default class CardSearch extends React.Component {
                     value={ this.props.currentCard }
                     options={ options }
                     clearable={false}
+                    autofocus={this.props.autoFocusSetting}
                     onChange={ this.props.cardChangeHandler }
                     />
             </div>	

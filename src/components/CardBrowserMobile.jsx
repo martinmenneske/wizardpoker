@@ -1,6 +1,7 @@
 import React from 'react';
 import CardImage from './CardImage.jsx';
 import CardMeta from './CardMeta.jsx';
+import CardSearch from './CardSearch.jsx';
 import { Button } from 'react-bootstrap';
 import PullToRefresh from 'react-pull-to-refresh';
 import FileImageIcon from 'react-icons/lib/go/file-media';
@@ -17,10 +18,23 @@ export default class CardBrowserMobile extends React.Component {
     constructor ( props ) {
         super ( props );
         this.state = {
-            flipped: false
+            flipped: false,
+            searching: false
         }
         this.handleFlipClick = this.handleFlipClick.bind(this);
+        this.handleSearchClick = this.handleSearchClick.bind(this);
+        this.handleChangeCard = this.handleChangeCard.bind(this);
         this.handlePullRefresh = this.handlePullRefresh.bind(this);
+    }
+
+    handleChangeCard( card ) {        
+        this.setState({
+            searching: false,
+            flipped: false
+        })
+        let hscard = document.getElementById('hscard');
+        hscard.className = '';
+        this.props.cardChangeHandler( card );
     }
 
     handlePullRefresh(resolve, reject) {
@@ -57,6 +71,14 @@ export default class CardBrowserMobile extends React.Component {
             }     
     }
 
+    handleSearchClick () {
+        this.setState({
+            searching: !this.state.searching
+        })
+        console.log('searching: ' + this.state.searching);
+        
+    }
+
     render () {
         return (
             <div className="app-wrap smallscreen"> 
@@ -77,6 +99,15 @@ export default class CardBrowserMobile extends React.Component {
                         </div>
                         </PullToRefresh>
                 </div>
+                {(this.state.searching)
+                ? <div className="search-container">
+                <CardSearch allCards={ this.props.allCardsData } 
+                                        currentCard={ this.props.cardData }
+                                        cardChangeHandler={ this.handleChangeCard } 
+                                        autoFocusSetting={ true } />
+                </div>
+                : ''
+                }
                 <nav className="under">
                     {(this.state.flipped)
                     ? <a className="flip-btn" onClick={this.handleFlipClick}>

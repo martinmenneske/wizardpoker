@@ -9,6 +9,12 @@
     left: 0;
     // position: relative;
     // background: #ff0;
+    .search-container {
+        @include centerer();
+        margin-top: -250px;
+        width: 300px;
+
+    }
     .hscard-container {
         height: 100%;
         width: 300px;
@@ -79,6 +85,11 @@
                 color: #999;
             }
         }
+    }
+    .image-load-svg {
+        position: relative;
+        top: -100px;
+        left: 125px;
     }
 }
 

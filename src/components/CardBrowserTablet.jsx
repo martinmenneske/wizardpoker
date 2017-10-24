@@ -42,7 +42,6 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-<<<<<<< HEAD
     saveSettings( saveStateLocal, preferGolden ) {
         console.log('from CardBrowser: saveStateLocal is ' + saveStateLocal);
         
@@ -56,15 +55,6 @@ export default class CardBrowserTablet extends React.Component {
 
     createToolTip ( item ){
         return <Tooltip bsSize="large" id="tooltip">{ item.name }</Tooltip>;
-=======
-    saveSettings( saveStateLocal, preferGolden, store ) {
-        this.props.saveStateHandler( saveStateLocal, preferGolden, store)
-        this.setState({
-            saveStateLocal: saveStateLocal,
-            preferGolden: preferGolden,
-            showSettings: !this.state.showSettings
-        });
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
 
     createPopOver ( item, i ){
@@ -99,24 +89,11 @@ export default class CardBrowserTablet extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {        
-<<<<<<< HEAD
         if(nextProps.cardHistory){
             this.setState({
                 cardHistory: nextProps.cardHistory
             });
         }
-=======
-         if(nextProps.cardHistory) { 
-            this.setState({ 
-                cardHistory: nextProps.cardHistory
-            });
-        }
-    }
-
-    doSomething( item ) {
-        // console.log(item);
-        
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
 
     render () {
@@ -127,14 +104,8 @@ export default class CardBrowserTablet extends React.Component {
                     dismissHandler={this.showHideSettings} 
                     saveHandler={this.saveSettings} 
                     goToFirst={this.props.clickHandler} 
-<<<<<<< HEAD
                     saveStateLocal={this.state.saveStateLocal} 
                     preferGolden={this.state.preferGolden}
-=======
-                    saveStateLocal={this.state.saveStateLocal}
-                    preferGolden={this.state.preferGolden} 
-                    store={this.state.storeJson}
->>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                     />
             </Modal>
             <Modal show={this.state.showAbout} onHide={this.showHideAbout}>
