@@ -19,18 +19,14 @@ export default class CardBrowserTablet extends React.Component {
             cardHistory : this.props.cardHistory,
             showSettings : false,
             showAbout: false,
-            storeState: false,
-            loadGolden: false,
-            storeJson: false
+            saveStateLocal: this.props.saveStateLocal,
+            preferGolden: this.props.preferGolden
         }
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
     }
 
-    componentDidMount () {
-
-    }
 
     showHideSettings () {
         this.setState({
@@ -44,14 +40,15 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    saveSettings( browse, bling, store ) {
+    saveSettings( saveStateLocal, preferGolden ) {
+        console.log('from CardBrowser: saveStateLocal is ' + saveStateLocal);
+        
+        this.props.storageSettingsHandler( saveStateLocal );
         this.setState({
             showSettings: !this.state.showSettings,
-            storeState: browse,
-            loadGolden: bling,
-            storeJson: store
+            saveStateLocal: saveStateLocal,
+            preferGolden: preferGolden
         })
-        
     }
 
     createToolTip ( item ){
@@ -90,9 +87,11 @@ export default class CardBrowserTablet extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {        
-        this.setState({
-            cardHistory : nextProps.cardHistory
-        })
+        if(nextProps.cardHistory){
+            this.setState({
+                cardHistory: nextProps.cardHistory
+            });
+        }
     }
 
     render () {
@@ -103,7 +102,9 @@ export default class CardBrowserTablet extends React.Component {
                     dismissHandler={this.showHideSettings} 
                     saveHandler={this.saveSettings} 
                     goToFirst={this.props.clickHandler} 
-                    currentSettings={{browse: this.state.storeState, bling: this.state.loadGolden, store: this.state.storeJson}}/>
+                    saveStateLocal={this.state.saveStateLocal} 
+                    preferGolden={this.state.preferGolden}
+                    />
             </Modal>
             <Modal show={this.state.showAbout} onHide={this.showHideAbout}>
                 <ModalAbout dismissHandler={this.showHideAbout} />

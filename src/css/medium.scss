@@ -2,7 +2,6 @@
 @import 'variables.scss';
 
 .mediumscreen {
-
     height: 100%;
     width: 100%;
     .hscard-search-select {
@@ -23,6 +22,7 @@
         
         .hscard-image-box {
             height: 395px;
+
         }
 
         .hscard-meta-box {
@@ -105,6 +105,11 @@
             }
         }
     }
+    .image-load-svg {
+        position: relative;
+        top: -100px;
+        left: 125px;
+    }
 }
 
 .modal {
@@ -117,7 +122,12 @@
         min-width: 200px;
         text-align: right; 
     }
+    .tab-content {
+        padding-top:20px;
+    }
+
     input[type='radio'] { display: none; }
+
 }
 
 .popover, .popover-title, .popover-content {
@@ -128,3 +138,4 @@
 
     }
 }
+

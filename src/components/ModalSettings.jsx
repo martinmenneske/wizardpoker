@@ -8,31 +8,24 @@ export default class ModalSettings extends React.Component {
     constructor( props ) {
         super( props );
         this.state = { 
-                browseMode: this.props.currentSettings.browse,
-                blingMode: this.props.currentSettings.bling,
-                storeMode: this.props.currentSettings.store
+                saveStateLocal: this.props.saveStateLocal,
+                preferGolden: this.props.preferGolden
             }
         this.setBrowseMode = this.setBrowseMode.bind(this);
         this.setBlingMode = this.setBlingMode.bind(this);
-        this.setStoreMode = this.setStoreMode.bind(this);
+
         this.saveAndClose = this.saveAndClose.bind(this);
         this.loadFirst = this.loadFirst.bind(this);
     }
     
     setBrowseMode ( value ) {        
         this.setState({
-            browseMode: value
+            saveStateLocal: value
         })
     }
     setBlingMode ( value ) {        
         this.setState({
-            blingMode: value
-        })
-    }
-
-    setStoreMode ( value ) {        
-        this.setState({
-            storeMode: value
+            preferGolden: value
         })
     }
 
@@ -43,7 +36,9 @@ export default class ModalSettings extends React.Component {
     }
 
     saveAndClose() {
-        this.props.saveHandler(this.state.browseMode, this.state.blingMode, this.state.storeMode);
+        console.log('from Modal: saveStateLocal is ' + this.state.saveStateLocal);
+        
+        this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden);
     }
     
     render () {
@@ -64,27 +59,26 @@ export default class ModalSettings extends React.Component {
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                         type="radio"
-                                        name="browse-mode"
-                                        value={this.state.browseMode}
+                                        name="save-state-mode"
+                                        value={this.state.saveStateLocal}
                                         onChange={this.setBrowseMode}>
                                             <ToggleButton value={true}>Sure!</ToggleButton>
                                             <ToggleButton value={false}>No, thanks</ToggleButton>
                                     </ToggleButtonGroup>
                                     </td>
-                            </tr>
-                            <tr> 
+                                </tr>
+                                <tr> 
                                     <td className="settings-text">
-                                        <strong>How about a cake?</strong> <br />
+                                        <strong>How about a cake?</strong> <strong><em style={{color: 'grey'}}>Currently not available.</em></strong><br />
                                         Would you like to store a copy of the card-data to speed up loading this page? Only text data will be stored.
                                     </td>
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                         type="radio"
                                         name="store-mode"
-                                        value={this.state.storeMode}
-                                        onChange={this.setStoreMode}>
-                                            <ToggleButton value={true}>Alrighty</ToggleButton>
-                                            <ToggleButton value={false}>No wai!</ToggleButton>
+                                        >
+                                            <ToggleButton disabled value={true}>Alrighty</ToggleButton>
+                                            <ToggleButton disabled value={false}>No wai!</ToggleButton>
                                     </ToggleButtonGroup>
                                     </td>
                             </tr>
@@ -96,8 +90,8 @@ export default class ModalSettings extends React.Component {
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                     type="radio"
-                                    name="bling-mode"
-                                    value={this.state.blingMode}
+                                    name="prefer-golden-mode"
+                                    value={this.state.preferGolden}
                                     onChange={this.setBlingMode}>
                                         <ToggleButton value={true}>Yep</ToggleButton>
                                         <ToggleButton value={false}>Nope</ToggleButton>
@@ -116,7 +110,6 @@ export default class ModalSettings extends React.Component {
                         </tbody>
                     </table>
                 </Modal.Body>
-    
                 <Modal.Footer>
                     <Button onClick={this.props.dismissHandler}>Close</Button>
                     <Button bsStyle="primary" onClick={this.saveAndClose}>Save changes</Button>

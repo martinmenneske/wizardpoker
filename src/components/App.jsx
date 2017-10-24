@@ -24,17 +24,30 @@ export default class App extends React.Component {
 
     constructor( props ) {
         super( props );
+        let localDataValue = localStorage.getItem('saveStateLocal');
+        let yesno = false;
+            if(localDataValue == 'remember'){
+                yesno = true;
+            } else {
+                yesno = false;
+            }
+
         this.state = {
             allCards: null,
             someCards: null,
             currentCard: null,
             cardHistory: [],
-            useLocalStorage: true
+            saveStateLocal: yesno,
+            debugging: true
         }
         this.handleClick = this.handleClick.bind(this);
+        this.handleRandom = this.handleRandom.bind(this);
         this.changeCurrentCard = this.changeCurrentCard.bind(this);
         this.changeHistory = this.changeHistory.bind(this);
-        this.getLocalStorage = this.getLocalStorage.bind(this);
+
+        this.setLocalStorageSettings = this.setLocalStorageSettings.bind(this);
+        this.setInitialState = this.setInitialState.bind(this);
+        this.handleDebug = this.handleDebug.bind(this);
     }
 
     componentDidMount() {
@@ -46,13 +59,12 @@ export default class App extends React.Component {
                 console.log(new Error('API Fuckup!'));
             } else if ( rawJson ) {                
                 let cards = hsData.makeData( rawJson );
-                let current = hsData.getRandomCard( );
-
                 this.setState({
                     allCards: cards,
-                    someCards: cards,
-                    currentCard: current
-                });
+                    someCards: cards
+                })
+
+                this.setInitialState();
 
             } else {
                 console.log(new Error('Havoc!'));
@@ -60,25 +72,53 @@ export default class App extends React.Component {
         });
     }
 
-    getLocalStorage () {
-        if(localStorage) {
-            let card = JSON.parse( localStorage.getItem( 'lastCardViewed'));
-            let history = JSON.parse( localStorage.getItem( 'viewHistory'));
+    setInitialState() {
+        let currentCard = hsData.getRandomCard();
+        let cardHistory = [];
+        if( this.state.saveStateLocal ) {
+            let savedCard = JSON.parse(localStorage.getItem('lastCardView'));
+            let savedHistory = JSON.parse(localStorage.getItem('lastHistoryState'));                
+                if(savedCard != null) currentCard = savedCard;
+                if(savedHistory != null) cardHistory = savedHistory;
+        }
+        this.setState({
+            currentCard: currentCard,
+            cardHistory: cardHistory
+        });
+    }
+
+    setLocalStorageSettings ( saveStateLocal = false ) {
+        switch (saveStateLocal) {
+            case true:
                 this.setState({
-                    currentCard: card,
-                    cardHistory: history
+                    saveStateLocal: saveStateLocal
                 })
-            
-        } else {
-            console.log('No local history.')
+                // Delay needed to properly set state before 
+                // reading state in function called
+                var rndFnc = () => this.writeLocalStorage( );
+                setTimeout(function() { rndFnc() }, 100);
+                break;
+            case false:
+                localStorage.clear();
+                localStorage.setItem('saveStateLocal', 'forget');
+                this.setState({
+                    saveStateLocal: saveStateLocal
+                });
+                break;
+            default:
+                break;
         }
     }
 
-    setLocalStorage () {
-        let card = this.state.currentCard;
-        let history = this.state.cardHistory;
-        localStorage.setItem('lastCardViewed', JSON.stringify(card));
-        localStorage.setItem('viewHistory', JSON.stringify(history));
+    writeLocalStorage() {
+        if(this.state.saveStateLocal){
+            let lastCardView = JSON.stringify(this.state.currentCard);
+            let lastHistoryState = JSON.stringify(this.state.cardHistory);
+
+            localStorage.setItem('saveStateLocal', 'remember');
+            localStorage.setItem('lastCardView', lastCardView);
+            localStorage.setItem('lastHistoryState', lastHistoryState);
+        }
     }
 
     changeCurrentCard ( newCard ) {
@@ -87,8 +127,11 @@ export default class App extends React.Component {
         this.setState({
             currentCard : newCard,
             cardHistory: newHistory
-        })
-        // this.setLocalStorage();
+        });
+        // Delay needed to properly set state before 
+        // reading state in function called
+        var rndFnc = () => this.writeLocalStorage( );
+            setTimeout(function() { rndFnc() }, 100);
     }
 
     changeHistory ( num, adding = true ) {
@@ -107,6 +150,7 @@ export default class App extends React.Component {
                     cardHistory: newHistory
                 })
         }
+        this.writeLocalStorage();
     }
 
     handleClick ( ev ) {                
@@ -129,7 +173,20 @@ export default class App extends React.Component {
                 newCard = hsData.getRandomCard();
                 break;
         }
+
         this.changeCurrentCard( newCard );
+    }
+
+    handleRandom () {
+        let rng = hsData.getRandomCard();
+        this.changeCurrentCard( rng );
+    }
+
+    handleDebug ( ev ) {
+            // Helper function for debugging
+
+            localStorage.clear();
+            localStorage.setItem('saveStateLocal', 'remember');
     }
 
     render () {
@@ -143,17 +200,19 @@ export default class App extends React.Component {
                             maxDeviceWidth={766}>
                             <CardBrowserMobile 
                                 cardData={ this.state.currentCard } 
-                                randomHandler={ this.handleClick }/>
+                                randomHandler={ this.handleRandom }/>
                 </MediaQuery>
                 <MediaQuery minDeviceWidth={767}>
                             <CardBrowserTablet 
                                 cardData={ this.state.currentCard } 
                                 allCardsData={ this.state.allCards }
                                 cardHistory={ this.state.cardHistory }
+                                saveStateLocal={ this.state.saveStateLocal }
                                 clickHandler={ this.handleClick } 
                                 cardChangeHandler={ this.changeCurrentCard }
                                 historyChangeHandler= { this.changeHistory }
-                                localGetter= {this.getLocalStorage}/>
+                                storageSettingsHandler={ this.setLocalStorageSettings }
+                                />
                 </MediaQuery>
                 {/* <MediaQuery minWidth={1224}
                             className="app-wrap desktop">
@@ -163,6 +222,10 @@ export default class App extends React.Component {
             : (<div className="loader-wrap">
                 <AppLoaderMessage text="Hang on to yer boots!" />
              </div>)
+            }
+            {(this.state.debugging)
+            ? <Button onClick={this.handleDebug}> Hit me! </Button>
+            : ''
             }
             </div>
         )

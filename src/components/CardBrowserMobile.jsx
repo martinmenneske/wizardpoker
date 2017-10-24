@@ -26,10 +26,9 @@ export default class CardBrowserMobile extends React.Component {
     handlePullRefresh(resolve, reject) {
         if (resolve) {
             // Buggy shit for delaying image load until pullrefresher is done
-            // var rndFnc = () => this.props.randomHandler( );
-            // setTimeout(function() { rndFnc() }, 500);
-            
-            this.props.randomHandler( )
+            var rndFnc = () => this.props.randomHandler( );
+            setTimeout(function() { rndFnc() }, 500);
+            // this.props.randomHandler( )
             let hscard = document.getElementById('hscard');
                 hscard.className = '';
                 this.setState({
