@@ -24,6 +24,7 @@ export default class App extends React.Component {
 
     constructor( props ) {
         super( props );
+<<<<<<< HEAD
         let localDataValue = localStorage.getItem('saveStateLocal');
         let yesno = false;
             if(localDataValue == 'remember'){
@@ -32,22 +33,48 @@ export default class App extends React.Component {
                 yesno = false;
             }
 
+=======
+        let decider = localStorage.getItem('saveState');
+        let yesNo = (decider == 'remember') ? true : false;
+        
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
         this.state = {
             allCards: null,
             someCards: null,
             currentCard: null,
             cardHistory: [],
+<<<<<<< HEAD
             saveStateLocal: yesno,
             debugging: true
+=======
+            saveStateLocal: yesNo,
+            preferGolden: false,
+            debug: true
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
         }
+
+        
+        console.log(`
+            App Constructor:
+            decider is: ${decider}
+            this.state.saveStateLocal is: ${this.state.saveStateLocal}
+        `)
+
         this.handleClick = this.handleClick.bind(this);
         this.handleRandom = this.handleRandom.bind(this);
         this.changeCurrentCard = this.changeCurrentCard.bind(this);
         this.changeHistory = this.changeHistory.bind(this);
+<<<<<<< HEAD
 
         this.setLocalStorageSettings = this.setLocalStorageSettings.bind(this);
         this.setInitialState = this.setInitialState.bind(this);
         this.handleDebug = this.handleDebug.bind(this);
+=======
+        this.setCookieState = this.setCookieState.bind(this);
+        this.saveStateLocally = this.saveStateLocally.bind(this);
+        
+        this.handleTesting = this.handleTesting.bind(this);
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
 
     componentDidMount() {
@@ -59,12 +86,43 @@ export default class App extends React.Component {
                 console.log(new Error('API Fuckup!'));
             } else if ( rawJson ) {                
                 let cards = hsData.makeData( rawJson );
+<<<<<<< HEAD
                 this.setState({
                     allCards: cards,
                     someCards: cards
                 })
 
                 this.setInitialState();
+=======
+                let card = hsData.getRandomCard();
+
+                this.setState({
+                    allCards: cards,
+                    someCards: cards
+                });
+                
+
+                if(this.state.saveStateLocal) {
+                    let savedHistoryState = JSON.parse(localStorage.getItem('historyState'));
+                    let savedLastCardViewed = JSON.parse(localStorage.getItem('lastCardViewed'));
+                    let savedPreferGolden = localStorage.getItem('preferGolden');
+                        console.log(`
+                        on mounting, this from localStorage:
+                        savedHistoryState: ${savedHistoryState.length}
+                        savedLastCardViewed: ${savedLastCardViewed.name}
+                        preferGolden: ${savedPreferGolden}
+                        ===============================
+                        `)
+                        let goldYesNo = (savedPreferGolden == 'golden') ? true : false;
+                        this.setState({
+                            currentCard: savedLastCardViewed,
+                            cardHistory: savedHistoryState,
+                            preferGolden: goldYesNo
+                        })
+                } else {
+                    this.changeCurrentCard( card );
+                }
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
 
             } else {
                 console.log(new Error('Havoc!'));
@@ -72,6 +130,7 @@ export default class App extends React.Component {
         });
     }
 
+<<<<<<< HEAD
     setInitialState() {
         let currentCard = hsData.getRandomCard();
         let cardHistory = [];
@@ -107,9 +166,21 @@ export default class App extends React.Component {
                 break;
             default:
                 break;
+=======
+    setCookieState( saveStateLocal, preferGolden, bullCrap = null ) {
+        this.setState({
+            saveStateLocal: saveStateLocal,
+            preferGolden: preferGolden
+        });
+        if(!saveStateLocal) {
+            localStorage.clear();
+            localStorage.setItem('saveState', 'forget');
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
         }
+        
     }
 
+<<<<<<< HEAD
     writeLocalStorage() {
         if(this.state.saveStateLocal){
             let lastCardView = JSON.stringify(this.state.currentCard);
@@ -132,9 +203,32 @@ export default class App extends React.Component {
         // reading state in function called
         var rndFnc = () => this.writeLocalStorage( );
             setTimeout(function() { rndFnc() }, 100);
+=======
+    saveStateLocally ( ) {        
+        localStorage.setItem('lastCardViewed', JSON.stringify(this.state.currentCard));
+        localStorage.setItem('historyState', JSON.stringify(this.state.cardHistory));
     }
 
-    changeHistory ( num, adding = true ) {
+    changeCurrentCard ( inputCard ) {
+        
+        if(this.state.currentCard) {
+            let newHistory = this.state.cardHistory;
+                newHistory.unshift( this.state.currentCard );
+            this.setState({
+                currentCard : inputCard,
+                cardHistory: newHistory
+            })
+
+        } else {
+            this.setState({
+                currentCard: inputCard
+            })
+        }
+        setTimeout(this.saveStateLocally, 100);
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
+    }
+
+    changeHistory ( num, adding = true ) {        
         if ( adding ) {
             let newCard = this.state.cardHistory[ num ];
             let newHistory = this.state.cardHistory.slice( num + 1 )
@@ -144,13 +238,20 @@ export default class App extends React.Component {
                 cardHistory: newHistory 
             })
          } else {
+             console.log('Splicing history');
+             
             let newHistory = this.state.cardHistory;
                 newHistory.splice(num, 1);
                 this.setState({
                     cardHistory: newHistory
                 })
+<<<<<<< HEAD
         }
         this.writeLocalStorage();
+=======
+            }
+
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
 
     handleClick ( ev ) {                
@@ -177,6 +278,7 @@ export default class App extends React.Component {
         this.changeCurrentCard( newCard );
     }
 
+<<<<<<< HEAD
     handleRandom () {
         let rng = hsData.getRandomCard();
         this.changeCurrentCard( rng );
@@ -187,6 +289,10 @@ export default class App extends React.Component {
 
             localStorage.clear();
             localStorage.setItem('saveStateLocal', 'remember');
+=======
+    handleTesting ( ev ) {
+        localStorage.clear();
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
     }
 
     render () {
@@ -208,11 +314,19 @@ export default class App extends React.Component {
                                 allCardsData={ this.state.allCards }
                                 cardHistory={ this.state.cardHistory }
                                 saveStateLocal={ this.state.saveStateLocal }
+<<<<<<< HEAD
                                 clickHandler={ this.handleClick } 
                                 cardChangeHandler={ this.changeCurrentCard }
                                 historyChangeHandler= { this.changeHistory }
                                 storageSettingsHandler={ this.setLocalStorageSettings }
                                 />
+=======
+                                preferGolden={ this.state.preferGolden }
+                                clickHandler={ this.handleClick } 
+                                cardChangeHandler={ this.changeCurrentCard }
+                                historyChangeHandler= { this.changeHistory }
+                                saveStateHandler= {this.setCookieState}/>
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
                 </MediaQuery>
                 {/* <MediaQuery minWidth={1224}
                             className="app-wrap desktop">
@@ -223,8 +337,14 @@ export default class App extends React.Component {
                 <AppLoaderMessage text="Hang on to yer boots!" />
              </div>)
             }
+<<<<<<< HEAD
             {(this.state.debugging)
             ? <Button onClick={this.handleDebug}> Hit me! </Button>
+=======
+            {
+            (this.state.debug)
+            ? <button onClick={this.handleTesting}>Hit me!</button>
+>>>>>>> 8983d508b8f03128898941378e288a6568528c0f
             : ''
             }
             </div>
