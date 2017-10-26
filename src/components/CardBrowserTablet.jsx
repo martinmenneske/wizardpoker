@@ -22,7 +22,7 @@ export default class CardBrowserTablet extends React.Component {
             saveStateLocal: this.props.saveStateLocal,
             preferGolden: this.props.preferGolden
         }
-        console.log('Constructor in CB says: ' + this.state.cardHistory[0]);
+        console.log('Constructor in CB says: ' + this.state.cardHistory.length);
         
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);

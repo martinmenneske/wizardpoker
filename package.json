@@ -21,7 +21,7 @@
     "react-dom": "^16.0.0",
     "react-icons": "^2.2.7",
     "react-load-image": "^0.1.5",
-    "react-pull-to-refresh": "^1.1.1",
+    "react-pull-to-refresh": "https://github.com/martinmenneske/react-pull-to-refresh",
     "react-responsive": "^3.0.0",
     "react-select": "^1.0.0-rc.10",
     "react-select-fast-filter-options": "^0.2.3",

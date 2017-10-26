@@ -11,8 +11,8 @@ export default class ModalSettings extends React.Component {
                 saveStateLocal: this.props.saveStateLocal,
                 preferGolden: this.props.preferGolden
             }
-        this.setBrowseMode = this.setBrowseMode.bind(this);
-        this.setBlingMode = this.setBlingMode.bind(this);
+        this.setSaveStateLocal = this.setSaveStateLocal.bind(this);
+        this.setPreferGolden = this.setPreferGolden.bind(this);
 
         this.saveAndClose = this.saveAndClose.bind(this);
         this.loadFirst = this.loadFirst.bind(this);
@@ -35,8 +35,6 @@ export default class ModalSettings extends React.Component {
     }
 
     saveAndClose() {
-        console.log('from Modal: saveStateLocal is ' + this.state.saveStateLocal);
-        
         this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden);
     }
     
@@ -64,7 +62,7 @@ export default class ModalSettings extends React.Component {
                                         type="radio"
                                         name="save-state-mode"
                                         value={this.state.saveStateLocal}
-                                        onChange={this.setBrowseMode}>
+                                        onChange={this.setSaveStateLocal}>
                                             <ToggleButton value={true}>Sure!</ToggleButton>
                                             <ToggleButton value={false}>No, thanks</ToggleButton>
                                     </ToggleButtonGroup>
@@ -96,7 +94,7 @@ export default class ModalSettings extends React.Component {
                                     type="radio"
                                     name="prefer-golden-mode"
                                     value={this.state.preferGolden}
-                                    onChange={this.setBlingMode}>
+                                    onChange={this.setPreferGolden}>
                                         <ToggleButton value={true}>Yep</ToggleButton>
                                         <ToggleButton value={false}>Nope</ToggleButton>
                                 </ToggleButtonGroup>

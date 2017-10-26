@@ -81,8 +81,9 @@ export default class App extends React.Component {
             let savedCard = JSON.parse(localStorage.getItem('lastCardView'));
             let savedHistory = JSON.parse(localStorage.getItem('lastHistoryState'));                
                 if(savedCard != null) currentCard = savedCard;
-                if(savedHistory != null) cardHistory = savedHistory;
+                if(savedHistory != null) cardHistory = savedHistory.slice(0,50);
         }
+
         this.setState({
             currentCard: currentCard,
             cardHistory: cardHistory
@@ -146,9 +147,7 @@ export default class App extends React.Component {
                 currentCard: newCard,
                 cardHistory: newHistory 
             })
-         } else {
-             console.log('Splicing history');
-             
+         } else {             
             let newHistory = this.state.cardHistory;
                 newHistory.splice(num, 1);
                 this.setState({

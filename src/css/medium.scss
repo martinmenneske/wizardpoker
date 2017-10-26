@@ -11,18 +11,20 @@
 
     }
     .hscard-container {
-
+        // background: $dbg-red;
         margin: 30px auto 0 auto;
         display: flex;
         align-content: flex-start;
         justify-content: space-around;
         min-width: 700px;
-        min-height: 455px;
+        min-height: 400px;
         width: calc(100% - 50px);
         
         .hscard-image-box {
             height: 395px;
-
+            .hscard-image-placeholder {
+                margin-top: 0px !important;
+                }
         }
 
         .hscard-meta-box {

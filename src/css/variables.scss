@@ -1,2 +1,23 @@
+$debug: true;
+
+$dbg-yellow: none;
+$dbg-red: none;
+$dbg-blue: none;
+$dbg-green: none;
+$dbg-orange: none;
+$dbg-orange: none;
+$dbg-pink: none;
+
+@if $debug {
+    $dbg-yellow: Beige;
+    $dbg-red: Crimson;
+    $dbg-blue: CornflowerBlue;
+    $dbg-green: MediumSeaGreen;
+    $dbg-orange: DarkOrange;
+    $dbg-orange: Gainsboro;
+    $dbg-pink: HotPink;
+
+}
+
 $maincolor: #ffffff;
 $textsize: 18px;

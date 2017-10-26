@@ -3846,9 +3846,9 @@ react-prop-types@^0.4.0:
   dependencies:
     warning "^3.0.0"
 
-react-pull-to-refresh@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-pull-to-refresh/-/react-pull-to-refresh-1.1.1.tgz#f271858ea434a4542089ae6066fbf2580eb79edb"
+"react-pull-to-refresh@https://github.com/martinmenneske/react-pull-to-refresh":
+  version "1.1.2"
+  resolved "https://github.com/martinmenneske/react-pull-to-refresh#0654e9f05a3fc947e91f083b0dc30b53854deb80"
   dependencies:
     hammerjs "^2.0.4"
     prop-types "^15.5.10"

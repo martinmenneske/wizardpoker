@@ -1,38 +1,92 @@
 @import 'mixins.scss';
 @import 'variables.scss';
-@import 'puller.scss';
+
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    .smallscreen {
+        .landscape-blocker { 
+            @include centerer();
+            z-index: 3;
+            display: block !important;
+            background: #222;
+            color: white;
+            height: 90%;
+            width: 90%;
+            border: 2px solid;
+            text-align: center;
+            h1 {
+
+                @include centerer();
+                display: block;
+                height: 30px;
+                width: 90%;
+                margin-top: -50px;
+            }
+
+            p {
+                @include centerer();
+                display: block;
+                height: 30px;
+                width: 90%;
+            }
+
+        }
+        .app-inner-wrapper {
+            display: none;
+        }
+    }
+}
+
+
 
 .smallscreen {
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-    // position: relative;
-    // background: #ff0;
+    position: relative;
+
+    .landscape-blocker {
+        display: none;
+    }
+
     .search-container {
         @include centerer();
         margin-top: -250px;
         width: 300px;
+        z-index: 2;
 
     }
     .hscard-container {
+
         height: 100%;
-        width: 300px;
+        width: 100%;
         position: relative;
         bottom: 59px;
         margin: 0 auto;
-        // padding-top:30px;
-        
-        .pull-refresher {
-            @include centerer();
-            height:400px;
-            width: 300px;
-            margin: 0 auto;
-           
+
+        .ptr--ptr {
+
+            width: calc(100% + 20px);
+            margin-left: -10px;
+            background: rgba(0, 0, 0, .5);
+            margin-top: 60px;
+            .ptr--text, .ptr--icon {
+                color: white;
+                margin-bottom: 5px;
+            }
+        }
+                   
             #content {
-                margin-top:30px;
-                height: 100%;
-                width: 100%; 
+                min-height: 100%;
+                width: 306px;
+                z-index: 20;
+                -webkit-backface-visibility: hidden;
+                -webkit-perspective: 1000;
+                box-sizing: border-box;
+                margin-top:-40px;
+                width: 100%;
+
                 .hscard-image-box {
 
                     min-width: 286px;
@@ -58,13 +112,7 @@
                     }
                 }
             }
-            .hscard-image-placeholder {
-                margin-top: 10px;
-                    img {
-                    // opacity: .7; 
-                    }
-                }
-            }
+            
         }
     }
     .under {
@@ -94,18 +142,22 @@
     }
 }
 
+.hscard-image-placeholder {
+
+    margin-top: 48px !important;
+    }
+
 
 /* Flippant Styles */
 .smallscreen {
     .hscard-container { 
-        width: 306px;
+        // width: 306px;
         // height: 415px;
         // position: relative;
         perspective: 800px;
     }
 
     #hscard {
-
         width: 100%;
         height: 100%;
         position: absolute;
