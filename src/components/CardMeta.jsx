@@ -7,10 +7,9 @@ export default class CardMeta extends React.Component {
         super( props );
         this.state = {
             card: props.cardData,
-            key: 1
+            key: 1 // FIXME: <-- What is this? 
 
         }
-
         this.handleSelect = this.handleSelect.bind(this);
     }
 
@@ -25,6 +24,7 @@ export default class CardMeta extends React.Component {
     render() {
         let card = this.state.card;
         let multiClass = this.state.card.classes;
+        // FIXME: Below: Not good. Fix!
         let textHTML = card.text ? {__html: card.text.replace(/\\n/g, '<br>').replace(/\[x\]/, '')} : '';
         let flavorHTML = card.flavor ? {__html: card.flavor} : '';
         return (
@@ -42,25 +42,31 @@ export default class CardMeta extends React.Component {
                                     <span className='meta-value'>{ card.artist }</span>
                                 </div>
                                 
-                                <div className='hscard-artist meta-list'> 
+                                <div className='hscard-rarity meta-list'> 
                                     <span className='meta-key'>Rarity:  </span>
                                     <span className='meta-value'>{ card.rarity }</span>
                                 </div>
-                                <div className='hscard-artist meta-list'> 
+                                <div className='hscard-cardset meta-list'> 
                                     <span className='meta-key'>Set:  </span>
                                     <span className='meta-value'>{ card.cardSet }</span>
                                 </div>
                                 {(card.howToGet)
-                                ?  ( <div className='hscard-artist meta-list'> 
+                                ?  ( <div className='hscard-howto meta-list'> 
                                         <span className='meta-key'>How to get:  </span>
                                         <span className='meta-value'>{ card.howToGet }</span>
                                     </div> )
                                 : ('')
                                 }
                                 <hr />
-                                <div className='hscard-artist meta-list meta-flavor'>
-                                    {card.flavor.replace(/<\/?[bi]>/g, '*')} 
-                                </div> 
+                                {(card.flavor)
+                                ? <div className="meta-list-bottom-box">
+                                    <div className='hscard-flavor meta-list meta-flavor'>
+                                        {/* FIXME: Solve this somewhere higher up.  */}
+                                        {card.flavor.replace(/<\/?[bi]>/g, '*')} 
+                                    </div> 
+                                </div>
+                                : ''
+                                }
                             </div>
                         </Tab>
                         <Tab eventKey={2} title="Stats">
@@ -88,34 +94,36 @@ export default class CardMeta extends React.Component {
                                 : ''
                                 }
                                 {(multiClass)
-                                ?  ( <div className='hscard-artist meta-list'> 
+                                ?  ( <div className='hscard-classes meta-list'> 
                                         <span className='meta-key'>Classes:  </span>
                                         <span className='meta-value'>{ card.classes.toString().replace(/,/g, ', ') }</span>
                                     </div> )
-                                :  ( <div className='hscard-artist meta-list'> 
+                                :  ( <div className='hscard-class meta-list'> 
                                         <span className='meta-key'>Class:  </span>
                                         <span className='meta-value'>{ card.playerClass }</span>
                                     </div> )
                                 }
-                                <div className='hscard-artist meta-list'> 
+                                <div className='hscard-type meta-list'> 
                                     <span className='meta-key'>Type:  </span>
                                     <span className='meta-value'>{ card.type }</span>
                                 </div>
                                 {(card.race)
-                                ? (<div className='hscard-artist meta-list'> 
+                                ? (<div className='hscard-tribe meta-list'> 
                                     <span className='meta-key'>Tribe:  </span>
                                     <span className='meta-value'>{ card.race }</span>
                                 </div>) 
                                 : ('')
                                 }
-                                {(card.text)
-                                ? (
-                                <div className='hscard-text meta-list'>
-                                        <hr />
-                                        <div className='meta-value' dangerouslySetInnerHTML={textHTML}/> 
-                                </div>)
-                                : ''
-                                }
+                                <div className="meta-list-bottom-box">
+                                    {(card.text)
+                                    ? (
+                                    <div className='hscard-text meta-list meta-text'>
+                                            <hr />
+                                            <div className='meta-value' dangerouslySetInnerHTML={textHTML}/> 
+                                    </div>)
+                                    : ''
+                                    }
+                                </div>
                             </div>
                         </Tab>
                     </Tabs>

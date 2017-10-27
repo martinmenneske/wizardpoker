@@ -26,11 +26,11 @@ export default class App extends React.Component {
         super( props );
 
         let localDataValue = localStorage.getItem('saveStateLocal');
-        let yesno = false;
+        let localStorageYesno = false;
             if(localDataValue == 'remember'){
-                yesno = true;
+                localStorageYesno = true;
             } else {
-                yesno = false;
+                localStorageYesno = false;
             }
 
         this.state = {
@@ -38,7 +38,7 @@ export default class App extends React.Component {
             someCards: null,
             currentCard: null,
             cardHistory: [],
-            saveStateLocal: yesno,
+            saveStateLocal: localStorageYesno,
             debugging: false
         }
 
@@ -159,7 +159,8 @@ export default class App extends React.Component {
 
     handleClick ( ev ) {                
         let newCard;
-
+        console.log('clicked: ' + ev.target.name);
+        
         switch (ev.target.name) {
             case 'randomNav':
                 newCard = hsData.getRandomCard();
@@ -207,10 +208,13 @@ export default class App extends React.Component {
                                 allCardsData={ this.state.allCards }
                                 cardHistory={ this.state.cardHistory }
                                 cardChangeHandler={ this.changeCurrentCard }
-                                randomHandler={ this.handleRandom }/>
+                                randomHandler={ this.handleRandom }
+                                historyHandler={ this.handleClick }
+                                />
                 </MediaQuery>
-                <MediaQuery minDeviceWidth={767}>
-                            <CardBrowserTablet 
+                <MediaQuery minDeviceWidth={767}
+                            maxWidth={1223}>
+                            <CardBrowserTablet
                                 cardData={ this.state.currentCard } 
                                 allCardsData={ this.state.allCards }
                                 cardHistory={ this.state.cardHistory }
@@ -221,13 +225,21 @@ export default class App extends React.Component {
                                 storageSettingsHandler={ this.setLocalStorageSettings }
                                 />
                 </MediaQuery>
-                {/* <MediaQuery minWidth={1224}
+                <MediaQuery minWidth={1224}
                             className="app-wrap desktop">
-                            <CardBrowserFull cardData={ this.state.currentCard } />
-                </MediaQuery> */}
+                            <CardBrowserFull cardData={ this.state.currentCard } 
+                                allCardsData={ this.state.allCards }
+                                cardHistory={ this.state.cardHistory }
+                                saveStateLocal={ this.state.saveStateLocal }
+                                clickHandler={ this.handleClick } 
+                                cardChangeHandler={ this.changeCurrentCard }
+                                historyChangeHandler= { this.changeHistory }
+                                storageSettingsHandler={ this.setLocalStorageSettings }
+                                />
+                </MediaQuery>
              </div>)
             : (<div className="loader-wrap">
-                <AppLoaderMessage text="Hang on to yer boots!" />
+                <AppLoaderMessage text="Holy smokes!" />
              </div>)
             }
             {(this.state.debugging)

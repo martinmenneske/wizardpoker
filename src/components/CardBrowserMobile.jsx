@@ -2,14 +2,12 @@ import React from 'react';
 import CardImage from './CardImage.jsx';
 import CardMeta from './CardMeta.jsx';
 import CardSearch from './CardSearch.jsx';
-import { Button } from 'react-bootstrap';
 import PullToRefresh from '../js/pulltorefresh.min.js';
+
 import FileImageIcon from 'react-icons/lib/go/file-media';
 import FileTextIcon from 'react-icons/lib/go/file-text';
 import SearchIcon from 'react-icons/lib/go/search';
 import RandomIcon from 'react-icons/lib/md/cached';
-import PrefsIcon from 'react-icons/lib/go/terminal';
-
 
 import '../css/small.scss';
 
@@ -32,11 +30,24 @@ export default class CardBrowserMobile extends React.Component {
 
         PullToRefresh.init({
             mainElement: '#content',
+            instructionsReleaseToRefresh: 'Release to load a card at random',
+            instructionsRefreshing: 'Loading',
+
             onRefresh: function(){ 
-                console.log("Did it!"); 
-                scope.props.randomHandler ();
+                scope.handlePullRefresh();
             }
           });
+    }
+
+    handlePullRefresh () {
+        this.props.randomHandler ();
+        let hscard = document.getElementById('hscard');
+        if( hscard.classList.contains('flipped') ) {
+            hscard.className = '';
+            this.setState({
+                flipped: false
+            });
+        }
     }
 
     handleChangeCard( card ) {        
@@ -49,29 +60,6 @@ export default class CardBrowserMobile extends React.Component {
         this.props.cardChangeHandler( card );
     }
 
-    handlePullRefresh(resolve, reject) {
-        if (resolve) {
-            
-           
-            this.props.randomHandler( )
-            let hscard = document.getElementById('hscard');
-                hscard.className = '';
-                this.setState({
-                    flipped: false
-                })
-            
-                // TODO: setTimeOut because of delay in react-pull-to-refresh.
-                // Feels bad, but seems wonky without it.
-                // var rndFnc = () => resolve();
-                // setTimeout(function() { rndFnc() }, 1000);
-
-                resolve();
-            
-        } else {
-            console.log('Fail!');
-            reject();
-        }
-    }
 
     handleFlipClick ( e ) {
         let hscard = document.getElementById('hscard');
@@ -112,7 +100,7 @@ export default class CardBrowserMobile extends React.Component {
                                             currentCard={ this.props.cardData }
                                             cardChangeHandler={ this.handleChangeCard } 
                                             autoFocusSetting={ true } 
-                                            hammerOptions={{ direction: Hammer.DIRECTION_ALL }}/>
+                                            />
                     </div>
                     : ''
                     }
@@ -131,6 +119,9 @@ export default class CardBrowserMobile extends React.Component {
 
                     </div>
                     <nav className="under">
+                        <a className="random-btn" onClick={this.props.randomHandler}>
+                            <RandomIcon />
+                        </a>
                         {(this.state.flipped)
                         ? <a className="flip-btn" onClick={this.handleFlipClick}>
                             <FileImageIcon />
@@ -139,15 +130,9 @@ export default class CardBrowserMobile extends React.Component {
                             <FileTextIcon />
                         </a>
                         }
-                        <a className="random-btn" onClick={this.props.randomHandler}>
-                            <RandomIcon />
-                        </a>
                         <a className="search-btn" onClick={this.handleSearchClick}>
                             <SearchIcon />
                         </a>
-                        {/* <a className="prefs-btn" onClick={this.handlePrefsClick}>
-                            <PrefsIcon />
-                        </a>                     */}
                     </nav>
                 </div>
             </div>

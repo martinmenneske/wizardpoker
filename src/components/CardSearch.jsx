@@ -36,7 +36,8 @@ export default class CardSearch extends React.Component {
                     value={ this.props.currentCard }
                     options={ options }
                     clearable={false}
-                    autofocus={this.props.autoFocusSetting}
+                    autofocus={ this.props.autoFocusSetting }
+                    autoBlur={ true }
                     onChange={ this.props.cardChangeHandler }
                     />
             </div>	

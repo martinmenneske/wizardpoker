@@ -70,16 +70,16 @@ export default class ModalSettings extends React.Component {
                                 </tr>
                                 <tr> 
                                     <td className="settings-text">
-                                        <strong>How about a cake?</strong> <strong><em style={{color: 'grey'}}>Currently not available.</em></strong><br />
-                                        Would you like to store a copy of the card-data to speed up loading this page? Only text data will be stored.
-                                        
+                                        <strong>How about a cake?</strong> <strong><em style={{color: 'salmon'}}>
+                                        Currently not available.</em></strong><br />
+                                        Would you like to store a copy of the card-data to speed up loading this page? 
                                     </td>
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                         type="radio"
                                         name="store-mode"
                                         >
-                                            <ToggleButton disabled value={true}>Alrighty</ToggleButton>
+                                            <ToggleButton disabled value={true}>Hit me!</ToggleButton>
                                             <ToggleButton disabled value={false}>No wai!</ToggleButton>
                                     </ToggleButtonGroup>
                                     </td>
@@ -87,7 +87,8 @@ export default class ModalSettings extends React.Component {
                             <tr> 
                                 <td className="settings-text">
                                     <strong>Bling!</strong> <br />
-                                        The provider for golden cards is pretty unreliable and slow. Try to load golden cards anyway?
+                                        The provider for golden cards is pretty unreliable and slow. 
+                                        Would you still like to try loading golden cards?
                                     </td>
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
@@ -95,8 +96,8 @@ export default class ModalSettings extends React.Component {
                                     name="prefer-golden-mode"
                                     value={this.state.preferGolden}
                                     onChange={this.setPreferGolden}>
-                                        <ToggleButton value={true}>Yep</ToggleButton>
-                                        <ToggleButton value={false}>Nope</ToggleButton>
+                                        <ToggleButton value={true}>Bling!</ToggleButton>
+                                        <ToggleButton value={false}>Nope!</ToggleButton>
                                 </ToggleButtonGroup>
                                 </td>
                             </tr>

@@ -21,9 +21,7 @@ export default class CardBrowserTablet extends React.Component {
             showAbout: false,
             saveStateLocal: this.props.saveStateLocal,
             preferGolden: this.props.preferGolden
-        }
-        console.log('Constructor in CB says: ' + this.state.cardHistory.length);
-        
+        }        
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
@@ -53,10 +51,6 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    createToolTip ( item ){
-        return <Tooltip bsSize="large" id="tooltip">{ item.name }</Tooltip>;
-    }
-
     createPopOver ( item, i ){
         let refName = item.name + i;
         let scope = this;
@@ -78,11 +72,12 @@ export default class CardBrowserTablet extends React.Component {
         }
 
         return (
-            <Popover className="history-popover" id="popover-positioned-top" title={item.name}>
-                <div style={{ width: 150 }}>
-                    <Button block onClick={()=> doClick('loadAgain')}>Load again</Button>
+            <Popover className="history-popover" id="popover-positioned-top">
+                <div>
+                    <CardImage cardData={ item } />
+                    <Button block onClick={()=> doClick('loadAgain')}>Again</Button>
                     <Button block onClick={()=> doClick('goBack')}>Go back</Button> 
-                    <Button block onClick={()=> doClick('remove')}>Remove</Button>
+                    <Button block onClick={()=> doClick('remove')}>Delete</Button>
                 </div>
             </Popover>
         )
@@ -119,8 +114,8 @@ export default class CardBrowserTablet extends React.Component {
                     </Navbar.Header> */}
                         <Nav>
                             <NavDropdown eventKey={4} title="Meta" id="basic-nav-dropdown">
-                                <MenuItem name="settingsNav" eventKey={4.1} href="#" onClick={this.showHideSettings}>Settings</MenuItem>
-                                <MenuItem name="aboutNav" eventKey={4.2} href="#" onClick={this.showHideAbout}>About</MenuItem>
+                                <MenuItem name="settingsNav" className="nav-dropdown-item" eventKey={4.1} href="#" onClick={this.showHideSettings}>Settings</MenuItem>
+                                <MenuItem name="aboutNav" className="nav-dropdown-item" eventKey={4.2} href="#" onClick={this.showHideAbout}>About</MenuItem>
                             </NavDropdown>
                         </Nav>
                         <Nav>
@@ -132,18 +127,21 @@ export default class CardBrowserTablet extends React.Component {
                         <Nav pullRight>
                             <CardSearch allCards={ this.props.allCardsData } 
                                         currentCard={ this.props.cardData }
-                                        cardChangeHandler={ this.props.cardChangeHandler } />
+                                        cardChangeHandler={ this.props.cardChangeHandler } 
+
+                                        />
                         </Nav>
                 </Navbar>
                 <div className="hscard-container">
                     <CardImage cardData={ this.props.cardData } golden={ this.state.preferGolden } />
                     <CardMeta cardData={ this.props.cardData } />
                 </div>
+
                 <div id="under-body" className="history-container">
                     <div className="scroll-box">
                         <ul>
                             {
-                            (this.state.cardHistory)
+                            (this.state.cardHistory.length > 0)
                             ? this.state.cardHistory.map((item,i) => <li className="thumb-list-item" key={i}>
                             <OverlayTrigger ref={item.name + i} trigger="click" placement="top" rootClose overlay={this.createPopOver(item, i)}>
                                 <div className="thumbnail-wrap">
@@ -157,7 +155,11 @@ export default class CardBrowserTablet extends React.Component {
                                 </div>
                                 </OverlayTrigger>
                             </li>)
-                            : ''
+                            : <div className="empty-history-tray">
+                                <h2 className="empty-history-legend">
+                                    Recently viewed cards...
+                                </h2>
+                            </div>
                             }
                         </ul>
                     </div>
