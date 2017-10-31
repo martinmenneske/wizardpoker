@@ -68,9 +68,7 @@ html, body {
 }
 .hscard-container {
 
-    #content {
-        @include dropshadow();
-    }
+    @include dropshadow();
 
 }
 

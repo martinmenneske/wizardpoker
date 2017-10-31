@@ -12,7 +12,7 @@ const CardThumb = ( props ) => {
     }
 
     const loadHandler = ( ev ) => {
-    //    console.log('Image loaded!')
+    //    do something
     }
 
     return (

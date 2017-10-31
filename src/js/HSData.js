@@ -31,7 +31,7 @@ export default class HSData {
                                 somethings.push(obj[prop]);
                      }
                 }
-           }
+            }
         }
         if( somethings )
             return somethings;	
@@ -90,7 +90,7 @@ export default class HSData {
             return card.cardId == fromCard.cardId;
         }
         if(!fromCard) {
-            console.log('step function needs a card object as first param');
+            return new Error('The step function needs a card object to start from.')
             return;
         } else {
             let currentIndex = goodData.findIndex(compareID);                
@@ -117,7 +117,7 @@ export default class HSData {
             dbfId: 'bloodmanos',
             cardSet: 'Imaginary',
             name: 'Blood Manos',
-            flavor: 'Quanti Canicula Illa En Fenestre',
+            flavor: '<b>All</b> of them.',
             classes: 'Cheats,Blackguards,Ne\'erdowells',
             type: 'Utter Bastard',
             rarity: 'Super special',

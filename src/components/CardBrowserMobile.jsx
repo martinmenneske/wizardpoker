@@ -80,7 +80,6 @@ export default class CardBrowserMobile extends React.Component {
         this.setState({
             searching: !this.state.searching
         })
-        console.log('searching: ' + this.state.searching);
         
     }
 

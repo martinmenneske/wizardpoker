@@ -21,6 +21,8 @@
     "react-dom": "^16.0.0",
     "react-icons": "^2.2.7",
     "react-load-image": "^0.1.5",
+    "react-motion": "^0.5.2",
+    "react-motion-ui-pack": "^0.10.3",
     "react-pull-to-refresh": "https://github.com/martinmenneske/react-pull-to-refresh",
     "react-responsive": "^3.0.0",
     "react-select": "^1.0.0-rc.10",

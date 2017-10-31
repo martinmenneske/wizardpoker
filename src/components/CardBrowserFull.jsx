@@ -23,7 +23,7 @@ export default class CardBrowserFull extends React.Component {
             saveStateLocal: this.props.saveStateLocal,
             preferGolden: this.props.preferGolden
         }
-        console.log('Constructor in CB says: ' + this.state.cardHistory.length);
+
         
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
@@ -43,9 +43,7 @@ export default class CardBrowserFull extends React.Component {
         })
     }
 
-    saveSettings( saveStateLocal, preferGolden ) {
-        console.log('from CardBrowser: saveStateLocal is ' + saveStateLocal);
-        
+    saveSettings( saveStateLocal, preferGolden ) {        
         this.props.storageSettingsHandler( saveStateLocal );
         this.setState({
             showSettings: !this.state.showSettings,

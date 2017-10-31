@@ -52,6 +52,7 @@
 
     .search-container {
         @include centerer();
+        font-size: 1.2em;
         margin-top: -310px;
         width: 300px;
         z-index: 2;

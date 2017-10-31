@@ -54,24 +54,24 @@ export default class App extends React.Component {
 
     componentDidMount() {
         SuperAgent.get(API_URL)
-        .set(API_CREDS)
-        .set(API_OPTIONS)
-        .end((error, rawJson) => {
-            if( error ) {
-                console.log(new Error('API Fuckup!'));
-            } else if ( rawJson ) {                
-                let cards = hsData.makeData( rawJson );
-                this.setState({
-                    allCards: cards,
-                    someCards: cards
-                })
+                    .set(API_CREDS)
+                    .set(API_OPTIONS)
+                    .end((error, rawJson) => {
+                        if( error ) {
+                            console.log(new Error('API Fuckup!'));
+                        } else if ( rawJson ) {                
+                            let cards = hsData.makeData( rawJson );
+                            this.setState({
+                                allCards: cards,
+                                someCards: cards
+                            })
+                            
+                            this.setInitialState();
 
-                this.setInitialState();
-
-            } else {
-                console.log(new Error('Havoc!'));
-            }
-        });
+                        } else {
+                            console.log(new Error('Havoc!'));
+                        }
+                    });
     }
 
     setInitialState() {
@@ -159,8 +159,7 @@ export default class App extends React.Component {
 
     handleClick ( ev ) {                
         let newCard;
-        console.log('clicked: ' + ev.target.name);
-        
+
         switch (ev.target.name) {
             case 'randomNav':
                 newCard = hsData.getRandomCard();

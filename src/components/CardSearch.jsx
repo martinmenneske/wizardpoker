@@ -22,6 +22,8 @@ export default class CardSearch extends React.Component {
 
     }
 
+    
+
     componentDidMount () {
         
     }

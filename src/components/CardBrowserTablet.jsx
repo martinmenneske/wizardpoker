@@ -27,7 +27,6 @@ export default class CardBrowserTablet extends React.Component {
         this.saveSettings = this.saveSettings.bind(this);
     }
 
-
     showHideSettings () {
         this.setState({
             showSettings: !this.state.showSettings
@@ -75,9 +74,9 @@ export default class CardBrowserTablet extends React.Component {
             <Popover className="history-popover" id="popover-positioned-top">
                 <div>
                     <CardImage cardData={ item } />
-                    <Button block onClick={()=> doClick('loadAgain')}>Again</Button>
-                    <Button block onClick={()=> doClick('goBack')}>Go back</Button> 
-                    <Button block onClick={()=> doClick('remove')}>Delete</Button>
+                    <Button block onClick={()=> doClick('loadAgain')}>Reload</Button>
+                    {/* <Button block onClick={()=> doClick('goBack')}>Go back</Button>  */}
+                    <Button block onClick={()=> doClick('remove')}>Remove</Button>
                 </div>
             </Popover>
         )
@@ -114,21 +113,47 @@ export default class CardBrowserTablet extends React.Component {
                     </Navbar.Header> */}
                         <Nav>
                             <NavDropdown eventKey={4} title="Meta" id="basic-nav-dropdown">
-                                <MenuItem name="settingsNav" className="nav-dropdown-item" eventKey={4.1} href="#" onClick={this.showHideSettings}>Settings</MenuItem>
-                                <MenuItem name="aboutNav" className="nav-dropdown-item" eventKey={4.2} href="#" onClick={this.showHideAbout}>About</MenuItem>
+                                <MenuItem name="settingsNav" 
+                                            className="nav-dropdown-item"
+                                            eventKey={4.1} 
+                                            href="#" 
+                                            onClick={this.showHideSettings}>
+                                            Settings
+                                        </MenuItem>
+                                <MenuItem name="aboutNav" 
+                                            className="nav-dropdown-item" 
+                                            eventKey={4.2} 
+                                            href="#" 
+                                            onClick={this.showHideAbout}>
+                                            About
+                                        </MenuItem>
                             </NavDropdown>
                         </Nav>
                         <Nav>
-                            <NavItem name="randomNav" eventKey={1} href="#" onClick={this.props.clickHandler}>Random Card</NavItem>
-                            <NavItem name="prevNav" eventKey={2} href="#" onClick={this.props.clickHandler}>Prev</NavItem>
-                            <NavItem name="nextNav" eventKey={3} href="#" onClick={this.props.clickHandler}>Next</NavItem>
+                            <NavItem name="randomNav" 
+                                        eventKey={1} 
+                                        href="#" 
+                                        onClick={this.props.clickHandler}>
+                                        Random Card
+                                    </NavItem>
+                            <NavItem name="prevNav" 
+                                        eventKey={2} 
+                                        href="#" 
+                                        onClick={this.props.clickHandler}>
+                                        Prev
+                                    </NavItem>
+                            <NavItem name="nextNav" 
+                                        eventKey={3} 
+                                        href="#" 
+                                        onClick={this.props.clickHandler}>
+                                        Next
+                                    </NavItem>
                         </Nav>
                         
                         <Nav pullRight>
                             <CardSearch allCards={ this.props.allCardsData } 
                                         currentCard={ this.props.cardData }
                                         cardChangeHandler={ this.props.cardChangeHandler } 
-
                                         />
                         </Nav>
                 </Navbar>
@@ -143,7 +168,11 @@ export default class CardBrowserTablet extends React.Component {
                             {
                             (this.state.cardHistory.length > 0)
                             ? this.state.cardHistory.map((item,i) => <li className="thumb-list-item" key={i}>
-                            <OverlayTrigger ref={item.name + i} trigger="click" placement="top" rootClose overlay={this.createPopOver(item, i)}>
+                            <OverlayTrigger ref={ item.name + i } 
+                                            trigger="click" 
+                                            placement="top" 
+                                            rootClose 
+                                            overlay={ this.createPopOver(item, i) }>
                                 <div className="thumbnail-wrap">
                                     <div className="thumbnail">
                                         

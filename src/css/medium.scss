@@ -1,18 +1,7 @@
 @import 'mixins.scss';
 @import 'variables.scss';
 
-// VOODOO!
-//This works. I have NO idea why, but I'm not touching it.
-body {
-    .history-popover {
-        .arrow {
-        }
-        .arrow::after {
-            border-top-color: #ddd !important;
-        }
-    }
-}
-// /VOODOO
+
 .mediumscreen {
     height: 100%;
     width: 100%;
@@ -124,7 +113,7 @@ body {
             
             .thumbnail .hscard-thumb {
                 
-                margin: -85px 0 0 -100px;
+                margin: -75px 0 0 -100px;
             }
         }
     }
@@ -151,7 +140,12 @@ body {
     }
 
     input[type='radio'] { display: none; }
+}
 
+.history-popover {
+    .arrow::after {
+        border-top-color: #ddd !important;
+    }
 }
 
 .nav .dropdown li {
@@ -181,7 +175,7 @@ body {
     background: #ddd;
 
     .hscard-image-box {
-        margin: -15px auto 0 auto; 
+        margin: -10px auto 10px auto; 
         padding:5px 0;
         img {
             width: 180px;
