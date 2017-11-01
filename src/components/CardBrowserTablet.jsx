@@ -1,8 +1,10 @@
 import React from 'react';
-import CardImage from './CardImage.jsx';
+
 import CardThumb from './CardThumb.jsx';
-import CardMeta from './CardMeta.jsx';
+import CardView from './CardView.jsx';
+import CardImage from './CardImage.jsx';
 import CardSearch from './CardSearch.jsx';
+import CardHistory from './CardHistory.jsx';
 import ModalSettings from './ModalSettings.jsx';
 import ModalAbout from './ModalAbout.jsx';
 import AboutIcon from 'react-icons/lib/md/help';
@@ -20,11 +22,21 @@ export default class CardBrowserTablet extends React.Component {
             showSettings : false,
             showAbout: false,
             saveStateLocal: this.props.saveStateLocal,
-            preferGolden: this.props.preferGolden
+            preferGolden: this.props.preferGolden,
+            cardData: this.props.cardData
         }        
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
+        this.onChangeReady = this.onChangeReady.bind(this);
+    }
+
+    onChangeReady() {
+        console.log('OnChabgeReady called');
+        
+        this.setState({
+            cardData: this.props.cardData
+        });
     }
 
     showHideSettings () {
@@ -39,9 +51,7 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    saveSettings( saveStateLocal, preferGolden ) {
-        console.log('from CardBrowser: saveStateLocal is ' + saveStateLocal);
-        
+    saveSettings( saveStateLocal, preferGolden ) {        
         this.props.storageSettingsHandler( saveStateLocal );
         this.setState({
             showSettings: !this.state.showSettings,
@@ -50,43 +60,16 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    createPopOver ( item, i ){
-        let refName = item.name + i;
-        let scope = this;
-        function doClick ( who ) {
-            switch ( who ) {
-                case 'goBack':
-                    scope.props.historyChangeHandler(i);
-                    break;
-                case 'loadAgain':
-                    scope.props.cardChangeHandler( item );
-                    break;
-                case 'remove':
-                    scope.props.historyChangeHandler(i, false);
-                    break;
-                default:
-                    break;
-            }
-            scope.refs[refName].hide();
-        }
-
-        return (
-            <Popover className="history-popover" id="popover-positioned-top">
-                <div>
-                    <CardImage cardData={ item } />
-                    <Button block onClick={()=> doClick('loadAgain')}>Reload</Button>
-                    {/* <Button block onClick={()=> doClick('goBack')}>Go back</Button>  */}
-                    <Button block onClick={()=> doClick('remove')}>Remove</Button>
-                </div>
-            </Popover>
-        )
-    }
-
     componentWillReceiveProps (nextProps) {        
         if(nextProps.cardHistory){
             this.setState({
                 cardHistory: nextProps.cardHistory
             });
+        if( nextProps.cardData ){
+            this.setState({
+                cardData: nextProps.cardData
+            })
+            }
         }
     }
 
@@ -106,11 +89,6 @@ export default class CardBrowserTablet extends React.Component {
                 <ModalAbout dismissHandler={this.showHideAbout} />
             </Modal>
                 <Navbar inverse fluid>
-                    {/* <Navbar.Header>
-                        <Navbar.Brand>
-                            <a onClick={this.props.localGetter} href="#"><AsteriskIcon /></a>
-                        </Navbar.Brand>
-                    </Navbar.Header> */}
                         <Nav>
                             <NavDropdown eventKey={4} title="Meta" id="basic-nav-dropdown">
                                 <MenuItem name="settingsNav" 
@@ -158,40 +136,19 @@ export default class CardBrowserTablet extends React.Component {
                         </Nav>
                 </Navbar>
                 <div className="hscard-container">
-                    <CardImage cardData={ this.props.cardData } golden={ this.state.preferGolden } />
-                    <CardMeta cardData={ this.props.cardData } />
+                    <CardView 
+                        cardData={ this.state.cardData } 
+                        preferGolden={ this.state.preferGolden }
+                        changeReadyHandler= { this.onChangeReady }
+                         />
                 </div>
 
                 <div id="under-body" className="history-container">
-                    <div className="scroll-box">
-                        <ul>
-                            {
-                            (this.state.cardHistory.length > 0)
-                            ? this.state.cardHistory.map((item,i) => <li className="thumb-list-item" key={i}>
-                            <OverlayTrigger ref={ item.name + i } 
-                                            trigger="click" 
-                                            placement="top" 
-                                            rootClose 
-                                            overlay={ this.createPopOver(item, i) }>
-                                <div className="thumbnail-wrap">
-                                    <div className="thumbnail">
-                                        
-                                        {/* <a href="#" key={i} onClick={() => this.props.historyChangeHandler( i ) }>   */}
-                                            <CardThumb cardData={item} />
-                                        {/* </a> */}
-                                        
-                                    </div>
-                                </div>
-                                </OverlayTrigger>
-                            </li>)
-                            : <div className="empty-history-tray">
-                                <h2 className="empty-history-legend">
-                                    Recently viewed cards...
-                                </h2>
-                            </div>
-                            }
-                        </ul>
-                    </div>
+                    <CardHistory 
+                        cardHistory={ this.state.cardHistory } 
+                        cardChangeHandler={ this.props.cardChangeHandler }
+                        historyChangeHandler={ this.props.historyChangeHandler }
+                        />
                 </div>
             </div>
         )

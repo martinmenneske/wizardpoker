@@ -1,19 +1,9 @@
+@import 'mixins.scss';
+@import 'variables.scss';
+
 @media only screen and (min-width: 1224px) {
     .app-outer-wrapper {
         width: 1223px;
-        border-right: 1px solid #f00;
-        border-bottom:1px solid #f00;
+        margin: 0 auto;
     }
   }
-
-.full-size-disclaimer {
-    background: #ffffa5;
-    border-top: 1px solid #979762;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-}
-

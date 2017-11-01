@@ -27,11 +27,8 @@ export default class App extends React.Component {
 
         let localDataValue = localStorage.getItem('saveStateLocal');
         let localStorageYesno = false;
-            if(localDataValue == 'remember'){
-                localStorageYesno = true;
-            } else {
-                localStorageYesno = false;
-            }
+            (localDataValue == 'remember') ? localStorageYesno = true : localStorageYesno = false;
+
 
         this.state = {
             allCards: null,
@@ -134,7 +131,8 @@ export default class App extends React.Component {
         });
         // Delay needed to properly set state before 
         // reading state in function called
-        var rndFnc = () => this.writeLocalStorage( );
+        var rndFnc = () => { this.writeLocalStorage( ); };
+
             setTimeout(function() { rndFnc() }, 100);
     }
 
@@ -187,7 +185,7 @@ export default class App extends React.Component {
     }
 
     handleDebug ( ev ) {
-            // Helper function for debugging
+            // Helper function 
 
             localStorage.clear();
             localStorage.setItem('saveStateLocal', 'remember');
@@ -224,8 +222,7 @@ export default class App extends React.Component {
                                 storageSettingsHandler={ this.setLocalStorageSettings }
                                 />
                 </MediaQuery>
-                <MediaQuery minWidth={1224}
-                            className="app-wrap desktop">
+                <MediaQuery minWidth={1224}>
                             <CardBrowserFull cardData={ this.state.currentCard } 
                                 allCardsData={ this.state.allCards }
                                 cardHistory={ this.state.cardHistory }

@@ -12,50 +12,65 @@
 
     }
     .hscard-container {
-        // background: $dbg-red;
-        margin: 30px auto 0 auto;
-        display: flex;
-        align-content: flex-start;
-        justify-content: space-around;
-        min-width: 700px;
-        min-height: 400px;
-        width: calc(100% - 50px);
-        
-        .hscard-image-box {
-            height: 395px;
-            .hscard-image-placeholder {
-                margin-top: 0px !important;
-                }
-        }
 
-        .hscard-meta-box {
-            margin-top: 48px;
-            min-width: 385px;
-            flex-grow: 2;
-        
-            .hscard-meta-container {
-                min-height: 326px;
-        
-                #hscard-meta-tab-nav { 
-        
-                    .nav-tabs {
-                        margin-top: 10px;
+        .hscard-view {
+
+            margin: 30px auto 0 auto;
+            display: flex;
+            align-content: flex-start;
+            justify-content: space-around;
+            min-width: 700px;
+            min-height: 400px;
+            width: calc(100% - 50px);
+            
+            .hscard-image-box {
+                height: 395px;
+                .hscard-image-placeholder {
+                    margin-top: 0px !important;
+                    }
+            }
+
+            .hscard-meta-box {
+                margin-top: 48px;
+                min-width: 385px;
+                flex-grow: 2;
+            
+                .hscard-meta-container {
+                    min-height: 326px;
+            
+                    #hscard-meta-tab-nav { 
+            
+                        .nav-tabs {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+                .meta-list-bottom-box {
+                    position: relative;
+
+                    .meta-flavor, .meta-text {
+                        margin-top: 30px;
+                        display: block;
                     }
                 }
             }
-            .meta-list-bottom-box {
-                position: relative;
+        }
 
-                .meta-flavor, .meta-text {
-                    margin-top: 30px;
-                    display: block;
+    }
+
+    @-moz-document url-prefix() { 
+       #under-body { 
+            overflow: hidden;
+            .scroll-box {
+                height: 166px;
+                margin-bottom:-16px;
+                ul {
+                    @include vertical-align();
                 }
             }
         }
+      }
 
-
-
-    }
     #under-body {
         display: flex;
         clear: both;
@@ -66,7 +81,8 @@
         width: calc(100% - 80px);
         height: 150px;
         margin: 20px auto;
-        // padding: 20px;
+    
+
         .scroll-box {
             @include vertical-align();
             display: block;
@@ -83,9 +99,14 @@
 
                 li {
                     list-style-type: none;
-                    display: inline-block;
+                    display: none;  
+                    /* ^^ Will be set to 'inline-block' almost immediately by CardHistory.jsx
+                            delay (and subsequent kluges) needed to avoid unsightly blinking
+                            in the history list before enter-anim
+                    */
                     margin: 0 10px;
                 }
+
             }
             .empty-history-tray {
                 text-align: center;
@@ -110,10 +131,12 @@
                 clip-path: circle(50% at 50% 50%);
                 overflow: hidden;
             }
-            
+            .thumbnail .hscard-thumb-placeholder {
+                margin: -85px 0 0 -100px;
+            }
             .thumbnail .hscard-thumb {
                 
-                margin: -75px 0 0 -100px;
+                margin: -85px 0 0 -100px;
             }
         }
     }
@@ -213,3 +236,5 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #444;
 }
+
+// History list fadeins
