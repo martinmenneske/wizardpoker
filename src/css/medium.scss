@@ -1,5 +1,5 @@
-@import 'mixins.scss';
-@import 'variables.scss';
+@import "mixins.scss";
+@import "variables.scss";
 
 
 .mediumscreen {
@@ -14,7 +14,6 @@
     .hscard-container {
 
         .hscard-view {
-
             margin: 30px auto 0 auto;
             display: flex;
             align-content: flex-start;
@@ -25,6 +24,7 @@
             
             .hscard-image-box {
                 height: 395px;
+
                 .hscard-image-placeholder {
                     margin-top: 0px !important;
                     }
@@ -33,7 +33,7 @@
             .hscard-meta-box {
                 margin-top: 48px;
                 min-width: 385px;
-                flex-grow: 2;
+                flex-grow: 1;
             
                 .hscard-meta-container {
                     min-height: 326px;
@@ -100,9 +100,9 @@
                 li {
                     list-style-type: none;
                     display: none;  
-                    /* ^^ Will be set to 'inline-block' almost immediately by CardHistory.jsx
+                    /* ^^ Will be set to "inline-block" almost immediately by CardHistory.jsx
                             delay (and subsequent kluges) needed to avoid unsightly blinking
-                            in the history list before enter-anim
+                            in the history list before enter-animation.
                     */
                     margin: 0 10px;
                 }
@@ -136,7 +136,7 @@
             }
             .thumbnail .hscard-thumb {
                 
-                margin: -85px 0 0 -100px;
+                margin: -65px 0 0 -100px;
             }
         }
     }
@@ -162,7 +162,7 @@
         padding-top:20px;
     }
 
-    input[type='radio'] { display: none; }
+    input[type="radio"] { display: none; }
 }
 
 .history-popover {
@@ -205,6 +205,12 @@
             height: auto;
         }
     }
+}
+
+.dbr {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
 }
 
 

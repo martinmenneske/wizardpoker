@@ -1,9 +1,9 @@
-import React from 'react';
-import createFilterOptions from 'react-select-fast-filter-options';
-import 'style-loader!css-loader!react-select/dist/react-select.css';
-import 'style-loader!css-loader!react-virtualized/styles.css';
-import 'style-loader!css-loader!react-virtualized-select/styles.css';
-import VirtualizedSelect from 'react-virtualized-select';
+import React from "react";
+import createFilterOptions from "react-select-fast-filter-options";
+import "style-loader!css-loader!react-select/dist/react-select.css";
+import "style-loader!css-loader!react-virtualized/styles.css";
+import "style-loader!css-loader!react-virtualized-select/styles.css";
+import VirtualizedSelect from "react-virtualized-select";
 
 var options = [];
 var currentCard = {};
@@ -18,16 +18,7 @@ export default class CardSearch extends React.Component {
 
         filterOptions = createFilterOptions({ options })
         
-
-
     }
-
-    
-
-    componentDidMount () {
-        
-    }
-
     render () {
         return (
             <div>

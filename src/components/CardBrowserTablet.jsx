@@ -1,43 +1,45 @@
-import React from 'react';
+import React from "react";
 
-import CardThumb from './CardThumb.jsx';
-import CardView from './CardView.jsx';
-import CardImage from './CardImage.jsx';
-import CardSearch from './CardSearch.jsx';
-import CardHistory from './CardHistory.jsx';
-import ModalSettings from './ModalSettings.jsx';
-import ModalAbout from './ModalAbout.jsx';
-import AboutIcon from 'react-icons/lib/md/help';
-import { Button, Navbar, NavbarBrand, NavbarHeader, NavDropdown,
+import CardThumb from "./CardThumb.jsx";
+import CardView from "./CardView.jsx";
+import CardImage from "./CardImage.jsx";
+import CardSearch from "./CardSearch.jsx";
+import CardHistory from "./CardHistory.jsx";
+import ModalSettings from "./ModalSettings.jsx";
+import ModalAbout from "./ModalAbout.jsx";
+import { Button, Navbar, NavDropdown,
         Nav, NavItem, MenuItem, OverlayTrigger, Popover, 
-        Modal } from 'react-bootstrap';
+        Modal } from "react-bootstrap";
 
-import '../css/medium.scss';
+import "../css/medium.scss";
 
 export default class CardBrowserTablet extends React.Component {
     constructor ( props ) {
         super( props );
         this.state = { 
+            cardData: this.props.cardData,
             cardHistory : this.props.cardHistory,
-            showSettings : false,
-            showAbout: false,
             saveStateLocal: this.props.saveStateLocal,
             preferGolden: this.props.preferGolden,
-            cardData: this.props.cardData
+            showSettings : false,
+            showAbout: false
         }        
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
         this.onChangeReady = this.onChangeReady.bind(this);
+       
     }
 
+
+    /* Pretty sure this ... */
     onChangeReady() {
-        console.log('OnChabgeReady called');
-        
         this.setState({
             cardData: this.props.cardData
         });
     }
+    /* ... is safe to delete. 
+        Used to wrangle waiting for animation.  */
 
     showHideSettings () {
         this.setState({
@@ -51,8 +53,14 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    saveSettings( saveStateLocal, preferGolden ) {        
-        this.props.storageSettingsHandler( saveStateLocal );
+    saveSettings( saveStateLocal, preferGolden ) {
+
+        this.props.storageSettingsHandler( saveStateLocal, preferGolden );
+        /* 
+        * In theory, if I understand correctly, this (below) should not
+        * be necessary because the changes set in this.props.storageSettingsHandler
+        * should propagate down. In practice, I'm keeping it around.
+        */
         this.setState({
             showSettings: !this.state.showSettings,
             saveStateLocal: saveStateLocal,
@@ -61,7 +69,7 @@ export default class CardBrowserTablet extends React.Component {
     }
 
     componentWillReceiveProps (nextProps) {        
-        if(nextProps.cardHistory){
+        if( nextProps.cardHistory ){
             this.setState({
                 cardHistory: nextProps.cardHistory
             });
@@ -70,24 +78,32 @@ export default class CardBrowserTablet extends React.Component {
                 cardData: nextProps.cardData
             })
             }
+        if ( nextProps.preferGolden ) {
+            this.setState({
+                preferGolden: nextProps.preferGolden
+            })
+            }
         }
+
     }
 
     render () {
         return (
             <div className="app-wrap mediumscreen">
             <Modal show={this.state.showSettings} onHide={this.showHideSettings}>
+
                 <ModalSettings 
-                    dismissHandler={this.showHideSettings} 
-                    saveHandler={this.saveSettings} 
-                    goToFirst={this.props.clickHandler} 
-                    saveStateLocal={this.state.saveStateLocal} 
-                    preferGolden={this.state.preferGolden}
+                    dismissHandler={ this.showHideSettings } 
+                    saveHandler={ this.saveSettings } 
+                    goToFirst={ this.props.clickHandler } 
+                    saveStateLocal={ this.state.saveStateLocal } 
+                    preferGolden={ this.state.preferGolden }
                     />
             </Modal>
             <Modal show={this.state.showAbout} onHide={this.showHideAbout}>
                 <ModalAbout dismissHandler={this.showHideAbout} />
             </Modal>
+                {/* Next up for componentizing: The NavBar! */}
                 <Navbar inverse fluid>
                         <Nav>
                             <NavDropdown eventKey={4} title="Meta" id="basic-nav-dropdown">
@@ -145,7 +161,8 @@ export default class CardBrowserTablet extends React.Component {
 
                 <div id="under-body" className="history-container">
                     <CardHistory 
-                        cardHistory={ this.state.cardHistory } 
+                        cardHistory={ this.state.cardHistory }
+                        preferGolden={ this.state.preferGolden }
                         cardChangeHandler={ this.props.cardChangeHandler }
                         historyChangeHandler={ this.props.historyChangeHandler }
                         />

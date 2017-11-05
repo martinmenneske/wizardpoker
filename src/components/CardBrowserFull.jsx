@@ -1,19 +1,29 @@
-import React from 'react';
+/*
+ *      This is all bullshit.
+ *      This is just the CardBrowserMobile component + 3 lines of css.
+ *      Nothing to see here...
+*/
 
-import CardThumb from './CardThumb.jsx';
-import CardView from './CardView.jsx';
-import CardImage from './CardImage.jsx';
-import CardSearch from './CardSearch.jsx';
-import CardHistory from './CardHistory.jsx';
-import ModalSettings from './ModalSettings.jsx';
-import ModalAbout from './ModalAbout.jsx';
-import AboutIcon from 'react-icons/lib/md/help';
+
+
+
+
+import React from "react";
+
+import CardThumb from "./CardThumb.jsx";
+import CardView from "./CardView.jsx";
+import CardImage from "./CardImage.jsx";
+import CardSearch from "./CardSearch.jsx";
+import CardHistory from "./CardHistory.jsx";
+import ModalSettings from "./ModalSettings.jsx";
+import ModalAbout from "./ModalAbout.jsx";
+import AboutIcon from "react-icons/lib/md/help";
 import { Button, Navbar, NavbarBrand, NavbarHeader, NavDropdown,
         Nav, NavItem, MenuItem, OverlayTrigger, Popover, 
-        Modal } from 'react-bootstrap';
+        Modal } from "react-bootstrap";
 
-import '../css/medium.scss';
-import '../css/large.scss';
+import "../css/medium.scss";
+import "../css/large.scss";
 
 export default class CardBrowserFull extends React.Component {
     constructor ( props ) {
@@ -33,7 +43,7 @@ export default class CardBrowserFull extends React.Component {
     }
 
     onChangeReady() {
-        console.log('OnChabgeReady called');
+
         
         this.setState({
             cardData: this.props.cardData

@@ -1,7 +1,7 @@
-// import SuperAgent from 'superagent';
+// import SuperAgent from "superagent";
 
 
-const GOOD_CDN = 'http://wizardpoker.martinmenneske.no/hs/img/'; //'https://cdn.rawgit.com/schmich/hearthstone-card-images/7af5/rel/';
+const GOOD_CDN = "http://wizardpoker.martinmenneske.no/hs/img/"; //"https://cdn.rawgit.com/schmich/hearthstone-card-images/7af5/rel/";
 var goodData;
 
 
@@ -36,13 +36,13 @@ export default class HSData {
         if( somethings )
             return somethings;	
         else 
-            return new Error('Shit went wonky when trying to process JSON.');
+            return new Error("Shit went wonky when trying to process JSON.");
     }
 
     stripOriginalHeroCards ( data ) {       // -> Get rid of original Hero Cards
         let betterData = data;              // ^^ the first 9 cards of the classic 
             betterData.splice(0,9);         // ^^ set are uncollectible hero cards
-        return betterData;                  // ^^ so... KILL IT WITH FIRE!
+        return betterData;                  // ^^ so... KILL WITH FIRE!
     }
 
     stripHeroSkinsCardSet ( data ) {        // -->  Get rid of promo Hero Skins
@@ -60,7 +60,7 @@ export default class HSData {
                 card.value = card.name.toLowerCase();   // Apparently important for select sort. Or...?
                 card.label = card.name;                 // ^^ What she said.
                 card.format = decideFormat(card.cardSet);
-                card.imgAlt = GOOD_CDN + card.dbfId + '.png';
+                card.imgAlt = GOOD_CDN + card.dbfId + ".png";
             betterData.push(card);
         }
         function decideFormat( cardSet ) {              // Feels bad man...
@@ -85,24 +85,24 @@ export default class HSData {
             return goodData[rng];
     }
 
-    step( fromCard, direction='next' ) {        
+    step( fromCard, direction = "next" ) {        
         function compareID (card) {
             return card.cardId == fromCard.cardId;
         }
         if(!fromCard) {
-            return new Error('The step function needs a card object to start from.')
+            return new Error("The step function needs a card object to start from.")
             return;
         } else {
             let currentIndex = goodData.findIndex(compareID);                
             switch (direction) {
-                case 'next':
+                case "next":
                     if( currentIndex >= (goodData.length - 1)) currentIndex = -1;
                     return goodData[currentIndex + 1];
                     break;
-                case 'prev':
+                case "prev":
                     if( currentIndex == 0) currentIndex = goodData.length;
                     return goodData[currentIndex - 1];
-                case 'first':
+                case "first":
                     return goodData[0];    
                     break;
             }
@@ -112,20 +112,20 @@ export default class HSData {
 
     addMostImportantCard ( data ) {
         let easterEgg = {
-            artist: 'Internet Hivemind',
-            cardId: 'bloodmanos',
-            dbfId: 'bloodmanos',
-            cardSet: 'Imaginary',
-            name: 'Blood Manos',
-            flavor: '<b>All</b> of them.',
-            classes: 'Cheats,Blackguards,Ne\'erdowells',
-            type: 'Utter Bastard',
-            rarity: 'Super special',
-            howToGet: 'Perform a black mass.',
-            text: 'ALL minions!', 
-            cost: '6',
-            attack: '6',
-            health: '0'
+            artist: "Internet Hivemind",
+            cardId: "bloodmanos",
+            dbfId: "bloodmanos",
+            cardSet: "Imaginary",
+            name: "Blood Manos",
+            flavor: "<b>All</b> of them.",
+            classes: "Cheats,Blackguards,Ne'erdowells",
+            type: "Utter Bastard",
+            rarity: "Super special",
+            howToGet: "Perform a black mass.",
+            text: "ALL minions!", 
+            cost: "6",
+            attack: "6",
+            health: "0"
         }
         let betterData = data;
             betterData.push( easterEgg );

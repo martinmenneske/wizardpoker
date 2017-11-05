@@ -1,15 +1,15 @@
-import React from 'react';
-import CardImage from './CardImage.jsx';
-import CardMeta from './CardMeta.jsx';
-import CardSearch from './CardSearch.jsx';
-import PullToRefresh from '../js/pulltorefresh.min.js';
+import React from "react";
+import CardImage from "./CardImage.jsx";
+import CardMeta from "./CardMeta.jsx";
+import CardSearch from "./CardSearch.jsx";
+import PullToRefresh from "../js/pulltorefresh.min.js";
 
-import FileImageIcon from 'react-icons/lib/go/file-media';
-import FileTextIcon from 'react-icons/lib/go/file-text';
-import SearchIcon from 'react-icons/lib/go/search';
-import RandomIcon from 'react-icons/lib/md/cached';
+import FileImageIcon from "react-icons/lib/go/file-media";
+import FileTextIcon from "react-icons/lib/go/file-text";
+import SearchIcon from "react-icons/lib/go/search";
+import RandomIcon from "react-icons/lib/md/cached";
 
-import '../css/small.scss';
+import "../css/small.scss";
 
 export default class CardBrowserMobile extends React.Component {
 
@@ -22,28 +22,28 @@ export default class CardBrowserMobile extends React.Component {
         this.handleFlipClick = this.handleFlipClick.bind(this);
         this.handleSearchClick = this.handleSearchClick.bind(this);
         this.handleChangeCard = this.handleChangeCard.bind(this);
-        this.handlePullRefresh = this.handlePullRefresh.bind(this);
+        this.handleRandom = this.handleRandom.bind(this);
     }
 
     componentDidMount () {
-        var scope = this;
+        let scope = this;
 
         PullToRefresh.init({
-            mainElement: '#content',
-            instructionsReleaseToRefresh: 'Release to load a card at random',
-            instructionsRefreshing: 'Loading',
+            mainElement: "#content",
+            instructionsReleaseToRefresh: "Release to load a card at random",
+            instructionsRefreshing: "Loading",
 
             onRefresh: function(){ 
-                scope.handlePullRefresh();
+                scope.handleRandom();
             }
           });
     }
 
-    handlePullRefresh () {
+    handleRandom () {
         this.props.randomHandler ();
-        let hscard = document.getElementById('hscard');
-        if( hscard.classList.contains('flipped') ) {
-            hscard.className = '';
+        let hscard = document.getElementById("hscard");
+        if( hscard.classList.contains("flipped") ) {
+            hscard.className = "";
             this.setState({
                 flipped: false
             });
@@ -55,31 +55,30 @@ export default class CardBrowserMobile extends React.Component {
             searching: false,
             flipped: false
         })
-        let hscard = document.getElementById('hscard');
-        hscard.className = '';
+        let hscard = document.getElementById("hscard");
+            hscard.className = "";
         this.props.cardChangeHandler( card );
     }
 
-
-    handleFlipClick ( e ) {
-        let hscard = document.getElementById('hscard');
-            if( hscard.classList.contains('flipped') ) {
-                hscard.className = '';
+    handleFlipClick ( ev ) {
+        let hscard = document.getElementById("hscard");
+            if( hscard.classList.contains("flipped") ) {
+                hscard.className = "";
                 this.setState({
                     flipped: false
                 })
             } else {
-                hscard.className = 'flipped';
+                hscard.className = "flipped";
                 this.setState({
                     flipped: true
-                })
+                });
             }     
     }
 
     handleSearchClick () {
         this.setState({
             searching: !this.state.searching
-        })
+        });
         
     }
 
@@ -87,9 +86,9 @@ export default class CardBrowserMobile extends React.Component {
         return (
             <div className="app-wrap smallscreen">
                 <div className="landscape-blocker">
-                    <h1>Uh-oh...</h1>
+                    <h1>Uh-oh</h1>
                     <p>
-                        Landscape orientation at this size really doesn't work at all. Sorry...
+                        Landscape orientation at this size really doesn't work at all. Sorry.
                     </p>
                 </div>
                 <div className="app-inner-wrapper">
@@ -101,7 +100,7 @@ export default class CardBrowserMobile extends React.Component {
                                             autoFocusSetting={ true } 
                                             />
                     </div>
-                    : ''
+                    : ""
                     }
                     <div className="hscard-container">
 
@@ -118,7 +117,7 @@ export default class CardBrowserMobile extends React.Component {
 
                     </div>
                     <nav className="under">
-                        <a className="random-btn" onClick={this.props.randomHandler}>
+                        <a className="random-btn" onClick={this.handleRandom}>
                             <RandomIcon />
                         </a>
                         {(this.state.flipped)

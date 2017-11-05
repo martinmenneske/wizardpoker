@@ -1,20 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
+import React from "react";
+import ReactDOM from "react-dom";
+import { OverlayTrigger, Popover, Button } from "react-bootstrap";
 
-import CardImage from './CardImage.jsx';
-import CardThumb from './CardThumb.jsx';
+import CardImage from "./CardImage.jsx";
+import CardThumb from "./CardThumb.jsx";
 
 export default class CardHistory extends React.Component {
+    
     constructor( props ) {
         super( props );
         this.state = {
             cardHistory: this.props.cardHistory,
+            preferGolden: this.props.preferGolden,
             count: 0
         }
     }
 
+    componentDidMount () {
+        var rndFnc = () => this.onEnterAnimation( false );
+        setTimeout(function() { rndFnc() }, 10);
+    }
+
     componentWillReceiveProps ( nextProps ){
+
         let firstCount = this.state.count;
         let secondCount = 0;
     
@@ -25,19 +33,20 @@ export default class CardHistory extends React.Component {
         // reading state in function called
         var rndFnc = () => {
             secondCount = this.state.count;
-            (secondCount > firstCount) ? this.onEnterAnimation(true) : this.onEnterAnimation(false);
-         }
+            ( secondCount > firstCount ) ? this.onEnterAnimation(true) : this.onEnterAnimation(false);
+        }
         setTimeout(function() { rndFnc() }, 10);
         
     }
 
-    onEnterAnimation ( adding = true ) {
+    onEnterAnimation ( adding = false ) {
 
-        let lis = document.getElementsByClassName('thumb-list-item');
+        let lis = document.getElementsByClassName("thumb-list-item");
             for (var i = 0; i < lis.length; i++) {
                 var element = lis[i];
-                    element.style.display = 'inline-block';
+                    element.style.display = "inline-block";
                 }
+
         switch ( adding ) {
             case true:
                 new TimelineMax()
@@ -51,10 +60,7 @@ export default class CardHistory extends React.Component {
                 })
                 break;
             case false:
-                console.log('Nope!');
-                
                 break;
-                
         }
     }
 
@@ -63,14 +69,15 @@ export default class CardHistory extends React.Component {
         let refName = item.name + i;
         let scope = this;
         function doClick ( who ) {
+
             switch ( who ) {
-                case 'goBack':
-                    scope.props.historyChangeHandler(i);
+                case "goBack": // Not in use.
+                    scope.props.historyChangeHandler( i );
                     break;
-                case 'loadAgain':
+                case "loadAgain":
                     scope.props.cardChangeHandler( item );
                     break;
-                case 'remove':
+                case "remove":
                     scope.setState({ actionItem: i});
                     // Again: timeOut needed to deal with 
                     // delay setting state
@@ -89,9 +96,9 @@ export default class CardHistory extends React.Component {
             <Popover className="history-popover" id="popover-positioned-top">
                 <div>
                     <CardImage cardData={ item } />
-                    <Button block onClick={()=> doClick('loadAgain')}>Reload</Button>
-                    {/* <Button block onClick={()=> doClick('goBack')}>Go back</Button>  */}
-                    <Button block onClick={()=> doClick('remove')}>Remove</Button>
+                    <Button block onClick={()=> doClick("loadAgain")}>Reload</Button>
+                    {/* <Button block onClick={()=> doClick("goBack")}>Go back</Button>  */}
+                    <Button block onClick={()=> doClick("remove")}>Remove</Button>
                 </div>
             </Popover>
         )
@@ -104,7 +111,12 @@ export default class CardHistory extends React.Component {
             <ul ref={ul => { this.box = ul; }}>
                 {
                 (this.state.cardHistory.length > 0)
-                ? this.state.cardHistory.map((item,i) => <li id={'historyli-' + item.cardId } className="thumb-list-item fadein" key={i}>
+                ? this.state.cardHistory.map((item,i) => 
+                <li 
+                    id={"historyli-" + item.cardId }  //FIXME: This needs a better (or an additional) prop to make sure the id's come out unique.
+                    className="thumb-list-item fadein" 
+                    key={i}
+                    >
                 <OverlayTrigger ref={ item.name + i } 
                                 trigger="click" 
                                 placement="top" 

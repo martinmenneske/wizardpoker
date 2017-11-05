@@ -1,5 +1,5 @@
-@import 'mixins.scss';
-@import 'variables.scss';
+@import "mixins.scss";
+@import "variables.scss";
 
 
 @media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
@@ -52,7 +52,8 @@
 
     .search-container {
         @include centerer();
-        font-size: 1.2em;
+        font-size: 1.3em;
+        padding: 7px;
         margin-top: -310px;
         width: 300px;
         z-index: 2;
@@ -67,7 +68,6 @@
         margin: 0 auto;
 
         .ptr--ptr {
-
             width: calc(100% + 20px);
             margin-left: -10px;
             background: rgba(0, 0, 0, .5);
@@ -104,13 +104,13 @@
                     margin: 0 15px;
                     #hscard-meta-tab-nav {
                         .card-block {
-                            padding: 5px 10px;
+                            padding: 5px 10px 0 20px;
                         }
                     }
 
                     .card-block {
                         margin: 0;
-                        padding:10px 5px 5px 5px;
+                        padding:10px 5px 5px 15px;
                     }
                 }
             }
@@ -156,7 +156,6 @@
 
 
 .hscard-image-placeholder {
-
     margin-top: 48px !important;
     }
 

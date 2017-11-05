@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 import { Modal, ModalDialog, ModalHeader,ModalBody, ModalFooter, 
         Button, ButtonToolbar, ToggleButtonGroup, ToggleButton,
-        Grid, Row, Col} from 'react-bootstrap';
+        Grid, Row, Col} from "react-bootstrap";
 
 
 export default class ModalSettings extends React.Component {
     constructor( props ) {
         super( props );
+
         this.state = { 
                 saveStateLocal: this.props.saveStateLocal,
                 preferGolden: this.props.preferGolden
-            }
+            }            
         this.setSaveStateLocal = this.setSaveStateLocal.bind(this);
         this.setPreferGolden = this.setPreferGolden.bind(this);
 
@@ -18,23 +19,34 @@ export default class ModalSettings extends React.Component {
         this.loadFirst = this.loadFirst.bind(this);
     }
     
-    setSaveStateLocal ( value ) {         
+    setSaveStateLocal ( value ) {
         this.setState({
             saveStateLocal: value
         })
     }
-    setPreferGolden ( value ) {        
+    setPreferGolden ( value ){
         this.setState({
             preferGolden: value
         })
+        
+        
     }
     loadFirst() {
         this.props.goToFirst({target: {
-            name: 'resetBtn'
+            name: "resetBtn"
         }});
     }
 
     saveAndClose() {
+        /* Leaving this nugget to serve as a reminder that this
+        * is no way to live, and that I must find a better solution.
+        */
+       /* console.log(`
+            ModalSettings is sending up: 
+            this.state.saveStateLocal: ${this.state.saveStateLocal}
+            this.state.preferGolden: ${this.state.preferGolden}
+        `);
+        */
         this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden);
     }
     
@@ -70,7 +82,7 @@ export default class ModalSettings extends React.Component {
                                 </tr>
                                 <tr> 
                                     <td className="settings-text">
-                                        <strong>How about a cake?</strong> <strong><em style={{color: 'salmon'}}>
+                                        <strong>How about a cake?</strong> <br /> <strong><em style={{color: "salmon"}}>
                                         Currently not available.</em></strong><br />
                                         Would you like to store a copy of the card-data to speed up loading this page? 
                                     </td>
@@ -86,7 +98,7 @@ export default class ModalSettings extends React.Component {
                             </tr>
                             <tr> 
                                 <td className="settings-text">
-                                    <strong>Bling!</strong> <br />
+                                    <strong>Bling!</strong> <br /> <strong><em style={{color: "darkorange"}}>Images might load very slowly, or not at all.</em></strong><br />
                                         The provider for golden cards is pretty unreliable and slow. 
                                         Would you still like to try loading golden cards?
                                     </td>
@@ -104,10 +116,11 @@ export default class ModalSettings extends React.Component {
                             <tr> 
                                 <td className="settings-text">
                                     <strong>Start at the beginning.</strong> <br />
-                                        There's really no other way of deciding what is 'the beginning' other than the order the cards appear in the database. Want to load up the very first card?
+                                    For completionists and other crazy people. <br />
+                                        There"s really no other way of deciding what is "the beginning" other than the order the cards appear in the database. Want to load up the very first card?
                                     </td>
                                     <td className="settings-controls">
-                                        <Button bsSize='large' onClick={this.loadFirst}> Hit me! </Button>
+                                        <Button bsSize="large" onClick={this.loadFirst}> Hit me! </Button>
                                 </td>
                             </tr>
                         </tbody>

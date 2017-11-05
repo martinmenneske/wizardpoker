@@ -1,14 +1,14 @@
 /* Heady Stuff */ 
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,600');
-@import 'mixins.scss';
-@import 'variables.scss';
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,600");
+@import "mixins.scss";
+@import "variables.scss";
 
 
 /* General Styles */ 
 html, body {
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", sans-serif;
     font-size: $textsize;
-    background: url('../assets/texturedbg.png');
+    background: url("../assets/texturedbg.png");
 }
 
 
@@ -81,8 +81,12 @@ html, body {
 }
 
 .golden {
-    margin-top: -40px;
+    margin-top: -33px;
     margin-left: -10px;
+
+    width: 293px; /* This value is hardcoded by trial. */
+    height: auto;
+
 }
 
 /* App Loader Styles */ 
