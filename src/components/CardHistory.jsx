@@ -40,7 +40,6 @@ export default class CardHistory extends React.Component {
     }
 
     onEnterAnimation ( adding = false ) {
-
         let lis = document.getElementsByClassName("thumb-list-item");
             for (var i = 0; i < lis.length; i++) {
                 var element = lis[i];
@@ -107,7 +106,7 @@ export default class CardHistory extends React.Component {
 
     render () {
         return (
-            <div className="scroll-box">
+            <div id="history-scroll-container" className="scroll-box">
             <ul ref={ul => { this.box = ul; }}>
                 {
                 (this.state.cardHistory.length > 0)

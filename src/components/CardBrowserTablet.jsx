@@ -57,7 +57,7 @@ export default class CardBrowserTablet extends React.Component {
 
         this.props.storageSettingsHandler( saveStateLocal, preferGolden );
         /* 
-        * In theory, if I understand correctly, this (below) should not
+        * In theory, if I have this right, this (below) should not
         * be necessary because the changes set in this.props.storageSettingsHandler
         * should propagate down. In practice, I'm keeping it around.
         */
