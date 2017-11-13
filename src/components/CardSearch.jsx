@@ -28,7 +28,7 @@ export default class CardSearch extends React.Component {
                     name="hscard-selector"
                     value={ this.props.currentCard }
                     options={ options }
-                    clearable={false}
+                    clearable={ false }
                     autofocus={ this.props.autoFocusSetting }
                     autoBlur={ true }
                     onChange={ this.props.cardChangeHandler }

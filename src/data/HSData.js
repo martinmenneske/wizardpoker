@@ -91,7 +91,6 @@ export default class HSData {
         }
         if(!fromCard) {
             return new Error("The step function needs a card object to start from.")
-            return;
         } else {
             let currentIndex = goodData.findIndex(compareID);                
             switch (direction) {

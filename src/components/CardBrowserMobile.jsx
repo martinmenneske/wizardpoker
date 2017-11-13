@@ -40,7 +40,7 @@ export default class CardBrowserMobile extends React.Component {
     }
 
     handleRandom () {
-        this.props.randomHandler ();
+        this.props.randomHandler();
         let hscard = document.getElementById("hscard");
         if( hscard.classList.contains("flipped") ) {
             hscard.className = "";
@@ -79,7 +79,6 @@ export default class CardBrowserMobile extends React.Component {
         this.setState({
             searching: !this.state.searching
         });
-        
     }
 
     render () {
@@ -95,10 +94,10 @@ export default class CardBrowserMobile extends React.Component {
                     {(this.state.searching)
                     ? <div className="search-container">
                     <CardSearch allCards={ this.props.allCardsData } 
-                                            currentCard={ this.props.cardData }
-                                            cardChangeHandler={ this.handleChangeCard } 
-                                            autoFocusSetting={ true } 
-                                            />
+                                currentCard={ this.props.cardData }
+                                cardChangeHandler={ this.handleChangeCard } 
+                                autoFocusSetting={ true } 
+                                />
                     </div>
                     : ""
                     }

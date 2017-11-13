@@ -8,8 +8,8 @@ import CardHistory from "./CardHistory.jsx";
 import ModalSettings from "./ModalSettings.jsx";
 import ModalAbout from "./ModalAbout.jsx";
 import { Button, Navbar, NavDropdown,
-        Nav, NavItem, MenuItem, OverlayTrigger, Popover, 
-        Modal } from "react-bootstrap";
+        Nav, NavItem, MenuItem, OverlayTrigger, 
+        Popover, Modal } from "react-bootstrap";
 
 import "../css/medium.scss";
 
@@ -23,12 +23,11 @@ export default class CardBrowserTablet extends React.Component {
             preferGolden: this.props.preferGolden,
             showSettings : false,
             showAbout: false
-        }        
+        }
         this.showHideSettings = this.showHideSettings.bind(this);
         this.showHideAbout = this.showHideAbout.bind(this);
         this.saveSettings = this.saveSettings.bind(this);
         this.onChangeReady = this.onChangeReady.bind(this);
-       
     }
 
 
@@ -47,7 +46,7 @@ export default class CardBrowserTablet extends React.Component {
         })
     }
 
-    showHideAbout () {        
+    showHideAbout () {
         this.setState({
             showAbout: !this.state.showAbout
         })
@@ -56,6 +55,7 @@ export default class CardBrowserTablet extends React.Component {
     saveSettings( saveStateLocal, preferGolden ) {
 
         this.props.storageSettingsHandler( saveStateLocal, preferGolden );
+
         /* 
         * In theory, if I have this right, this (below) should not
         * be necessary because the changes set in this.props.storageSettingsHandler

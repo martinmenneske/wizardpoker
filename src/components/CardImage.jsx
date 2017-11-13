@@ -40,10 +40,7 @@ export default class CardImage extends React.Component {
         }
 
         if(nextProps.preferGolden != this.state.preferGolden) {
-            console.log(`
-            CardImage is receiving: 
-            this.state.preferGolden: ${nextProps.preferGolden}
-            `);
+
             imgClass = nextProps.preferGolden ? "hscard-image golden" : "hscard-image nongolden";
             this.setState({
                 preferGolden: nextProps.preferGolden,

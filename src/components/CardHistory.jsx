@@ -36,8 +36,14 @@ export default class CardHistory extends React.Component {
             ( secondCount > firstCount ) ? this.onEnterAnimation(true) : this.onEnterAnimation(false);
         }
         setTimeout(function() { rndFnc() }, 10);
-        
+
     }
+
+    /* TODO: Later, maybe. */
+    // determineScrollbarVisibility() {
+    //     let outer = document.getElementById("history-scroll-container");
+    //     let inner = document.getElementById("history-ul");
+    // }
 
     onEnterAnimation ( adding = false ) {
         let lis = document.getElementsByClassName("thumb-list-item");
@@ -107,7 +113,8 @@ export default class CardHistory extends React.Component {
     render () {
         return (
             <div id="history-scroll-container" className="scroll-box">
-            <ul ref={ul => { this.box = ul; }}>
+            <div id="history-ul-wrapper">
+            <ul id="history-ul" ref={ul => { this.box = ul; }}>
                 {
                 (this.state.cardHistory.length > 0)
                 ? this.state.cardHistory.map((item,i) => 
@@ -139,6 +146,7 @@ export default class CardHistory extends React.Component {
                 </div>
                 }
             </ul>
+            </div>
         </div>
         )
     }

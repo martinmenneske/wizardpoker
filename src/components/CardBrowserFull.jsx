@@ -1,6 +1,6 @@
 /*
  *      This is all bullshit.
- *      This is just the CardBrowserMobile component + 3 lines of css.
+ *      This is just the CardBrowserTablet component + 3 lines of css.
  *      Nothing to see here...
 */
 

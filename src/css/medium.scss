@@ -58,18 +58,19 @@
 
     }
 
-    @-moz-document url-prefix() { 
-       #under-body { 
-            overflow: hidden;
-            .scroll-box {
-                height: 166px;
-                margin-bottom:-16px;
-                ul {
-                    @include vertical-align();
-                }
-            }
-        }
-      }
+    /* Ill conceived attempt to hide scrollbar in Firefox */
+    // @-moz-document url-prefix() { 
+    //    #under-body { 
+    //         overflow: hidden;
+    //         .scroll-box {
+    //             height: 166px;
+    //             // margin-bottom:-16px;
+    //             ul {
+    //                 @include vertical-align();
+    //             }
+    //         }
+    //     }
+    //   }
 
     #under-body {
         display: flex;
@@ -154,8 +155,12 @@
         padding:10px;
     }
 
+    .modal-dialog {
+        width: 650px;
+    }
+
     .settings-controls {
-        min-width: 230px;
+        min-width: 200px;
         text-align: right; 
     }
     .tab-content {
@@ -190,7 +195,7 @@
         height: 115px !important;
     }
     #popover-positioned-top {
-        top: 140px !important;
+        // top: 140px !important;
     }
   }
 

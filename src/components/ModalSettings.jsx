@@ -4,6 +4,8 @@ import { Modal, ModalDialog, ModalHeader,ModalBody, ModalFooter,
         Grid, Row, Col} from "react-bootstrap";
 
 
+
+
 export default class ModalSettings extends React.Component {
     constructor( props ) {
         super( props );
@@ -11,12 +13,13 @@ export default class ModalSettings extends React.Component {
         this.state = { 
                 saveStateLocal: this.props.saveStateLocal,
                 preferGolden: this.props.preferGolden
-            }            
+            }
         this.setSaveStateLocal = this.setSaveStateLocal.bind(this);
         this.setPreferGolden = this.setPreferGolden.bind(this);
 
         this.saveAndClose = this.saveAndClose.bind(this);
         this.loadFirst = this.loadFirst.bind(this);
+
     }
     
     setSaveStateLocal ( value ) {
@@ -24,7 +27,7 @@ export default class ModalSettings extends React.Component {
             saveStateLocal: value
         })
     }
-    setPreferGolden ( value ){
+    setPreferGolden ( value ){        
         this.setState({
             preferGolden: value
         })
@@ -40,12 +43,11 @@ export default class ModalSettings extends React.Component {
     saveAndClose() {
         /* Leaving this nugget to serve as a reminder that this
         * is no way to live, and that I must find a better solution.
-        */
-       /* console.log(`
-            ModalSettings is sending up: 
-            this.state.saveStateLocal: ${this.state.saveStateLocal}
-            this.state.preferGolden: ${this.state.preferGolden}
-        `);
+        *    console.log(`
+        *         ModalSettings is sending up: 
+        *         this.state.saveStateLocal: ${this.state.saveStateLocal}
+        *         this.state.preferGolden: ${this.state.preferGolden}
+        *     `);
         */
         this.props.saveHandler(this.state.saveStateLocal, this.state.preferGolden);
     }
@@ -89,8 +91,7 @@ export default class ModalSettings extends React.Component {
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
                                         type="radio"
-                                        name="store-mode"
-                                        >
+                                        name="store-mode">
                                             <ToggleButton disabled value={true}>Hit me!</ToggleButton>
                                             <ToggleButton disabled value={false}>No wai!</ToggleButton>
                                     </ToggleButtonGroup>
@@ -98,19 +99,20 @@ export default class ModalSettings extends React.Component {
                             </tr>
                             <tr> 
                                 <td className="settings-text">
-                                    <strong>Bling!</strong> <br /> <strong><em style={{color: "darkorange"}}>Images might load very slowly, or not at all.</em></strong><br />
+                                    <strong>Bling!</strong> <br /> 
+                                    <strong><em style={{color: "darkorange"}}>Images might load slowly, or not at all.</em></strong><br />
                                         The provider for golden cards is pretty unreliable and slow. 
                                         Would you still like to try loading golden cards?
                                     </td>
                                     <td className="settings-controls">
                                     <ToggleButtonGroup
-                                    type="radio"
-                                    name="prefer-golden-mode"
-                                    value={this.state.preferGolden}
-                                    onChange={this.setPreferGolden}>
-                                        <ToggleButton value={true}>Bling!</ToggleButton>
-                                        <ToggleButton value={false}>Nope!</ToggleButton>
-                                </ToggleButtonGroup>
+                                        type="radio"
+                                        name="prefer-golden-mode"
+                                        value={this.state.preferGolden}
+                                        onChange={this.setPreferGolden}>
+                                            <ToggleButton value={true}>Bling!</ToggleButton>
+                                            <ToggleButton value={false}>Nope!</ToggleButton>
+                                    </ToggleButtonGroup>
                                 </td>
                             </tr>
                             <tr> 
